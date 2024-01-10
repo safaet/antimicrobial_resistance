@@ -1,0 +1,13 @@
+classifier,tr_precision,tr_recall,tr_f1 ,tr_accuracy,te_precision,te_recall,te_f1 ,te_accuracy
+LogisticRegression(),0.958,0.949,0.951,0.951,1.0,1.0,1.0,1.0
+GaussianNB(),0.974,0.969,0.971,0.971,0.912,0.875,0.88,0.885
+SVC(probability=True),0.95,0.939,0.941,0.942,0.967,0.958,0.961,0.962
+"DecisionTreeClassifier(criterion='entropy', random_state=1)",0.991,0.99,0.99,0.99,0.967,0.958,0.961,0.962
+"RandomForestClassifier(criterion='entropy', n_estimators=10, random_state=0)",0.991,0.99,0.99,0.99,0.938,0.917,0.921,0.923
+KNeighborsClassifier(),0.87,0.806,0.805,0.816,0.868,0.792,0.793,0.808
+LinearDiscriminantAnalysis(),0.991,0.99,0.99,0.99,0.912,0.875,0.88,0.885
+MultinomialNB(),0.926,0.92,0.922,0.922,0.938,0.917,0.921,0.923
+AdaBoostClassifier(),0.991,0.99,0.99,0.99,0.967,0.958,0.961,0.962
+GradientBoostingClassifier(),0.991,0.99,0.99,0.99,0.967,0.958,0.961,0.962
+ExtraTreesClassifier(),0.991,0.99,0.99,0.99,1.0,1.0,1.0,1.0
+BaggingClassifier(),0.991,0.99,0.99,0.99,0.967,0.958,0.961,0.962
