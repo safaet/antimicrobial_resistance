@@ -1,0 +1,4 @@
+classifier,tr_precision,tr_recall,tr_f1 ,tr_accuracy,te_precision,te_recall,te_f1 ,te_accuracy
+ENS-1,0.99,0.989,0.99,0.99,0.957,0.963,0.959,0.959
+ENS-1,0.997,0.997,0.997,0.997,0.928,0.927,0.928,0.928
+ENS-1,0.997,0.997,0.997,0.997,0.928,0.927,0.928,0.928
