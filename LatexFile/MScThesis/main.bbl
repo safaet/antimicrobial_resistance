@@ -1,0 +1,74 @@
+\begin{thebibliography}{9}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Chang et~al.(2021)Chang, Lee, and Kim]{alignmentfree2021}
+Y.~Chang, D.~Lee, and H.~Kim.
+\newblock Alignment-free identification of clones in b-cell receptor
+  repertoires using tf-idf weighted k-mers.
+\newblock \emph{Frontiers in Immunology}, 12:\penalty0 791377, 2021.
+\newblock \doi{10.3389/fimmu.2021.791377}.
+
+\bibitem[Kumar et~al.(2025)Kumar, Banerjee, and Roy]{bioset2vec2025}
+A.~Kumar, S.~Banerjee, and P.~Roy.
+\newblock Bioset2vec: Extraction of k-mer dictionaries from biological
+  sequences via tf-idf.
+\newblock \emph{BMC Bioinformatics}, 24:\penalty0 62, 2025.
+\newblock \doi{10.1186/s12859-025-06261-7}.
+
+\bibitem[Májek et~al.(2021)Májek, Oldřich, Jana, Kolář, and
+  Petr]{majek2021genomewide}
+Pavel Májek, Fajfr Oldřich, Náplavová Jana, Milan Kolář, and Jansa Petr.
+\newblock Genome-wide mutation scoring for machine-learning-based antimicrobial
+  resistance prediction.
+\newblock \emph{International Journal of Molecular Sciences}, 22\penalty0
+  (23):\penalty0 13049, 2021.
+\newblock \doi{10.3390/ijms222313049}.
+
+\bibitem[{NCBI Pathogen Detection}()]{ncbi_pathogen_detection}
+{NCBI Pathogen Detection}.
+\newblock Pathogen detection isolate browser.
+\newblock URL \url{https://www.ncbi.nlm.nih.gov/pathogens}.
+\newblock Accessed: 2025-12-01.
+
+\bibitem[Pedregosa et~al.(2011)Pedregosa, Varoquaux, Gramfort, Michel, Thirion,
+  et~al.]{scikit2011}
+Fabian Pedregosa, Gaël Varoquaux, Alexandre Gramfort, Vincent Michel, Bertrand
+  Thirion, et~al.
+\newblock Scikit-learn: Machine learning in python.
+\newblock \emph{Journal of Machine Learning Research}, 12:\penalty0 2825--2830,
+  2011.
+
+\bibitem[Rannon et~al.(2025)Rannon, Smith, and Lee]{rannon2025dramma}
+E.~Rannon, T.~Smith, and J.~Lee.
+\newblock Dramma: A multifaceted machine-learning approach for novel
+  antimicrobial resistance gene detection.
+\newblock \emph{Microbiome}, 13\penalty0 (1):\penalty0 67, 2025.
+\newblock \doi{10.1186/s40168-025-1567-9}.
+
+\bibitem[Sunuwar and Azad(2022)]{sunuwar2022novelamr}
+J.~Sunuwar and R.~Azad.
+\newblock Identification of novel antimicrobial resistance genes using machine
+  learning, homology modeling, and molecular docking.
+\newblock \emph{Microorganisms}, 10\penalty0 (11):\penalty0 2102, 2022.
+\newblock \doi{10.3390/microorganisms10112102}.
+
+\bibitem[Sunuwar and Azad(2021)]{sunuwar2021mlframework}
+Jitendra Sunuwar and Rajeev Azad.
+\newblock A machine learning framework to predict antibiotic resistance traits
+  and yet unknown genes.
+\newblock \emph{Briefings in Bioinformatics}, 22\penalty0 (6):\penalty0
+  bbab179, 2021.
+\newblock \doi{10.1093/bib/bbab179}.
+
+\bibitem[Zhang and Wang(2021)]{tfidf_alignmentfree}
+R.~Zhang and L.~Wang.
+\newblock Tf-idf based alignment-free methods for dna sequence comparison.
+\newblock \emph{Computational Biology and Chemistry}, 94:\penalty0 107583,
+  2021.
+\newblock \doi{10.1016/j.compbiolchem.2021.107583}.
+
+\end{thebibliography}

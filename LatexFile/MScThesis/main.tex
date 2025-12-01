@@ -1,0 +1,70 @@
+\documentclass[12pt, a4paper]{report}
+
+% -----------------------------------------
+%           PACKAGES
+% -----------------------------------------
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tocloft}
+\usepackage[numbers]{natbib}  % For numeric citations
+\usepackage{titlesec}
+\usepackage[table]{xcolor}
+\definecolor{customblue}{RGB}{0, 174, 239} % Approximate cyan/blue from image
+
+\geometry{
+    left=1.2in,
+    right=1.0in,
+    top=1.2in,
+    bottom=1.2in
+}
+
+\onehalfspacing
+
+\begin{document}
+
+% -----------------------------------------
+%           PREFACE (Imported)
+% -----------------------------------------
+\input{preface/titlepage}
+\input{preface/declaration}
+\input{preface/abstract}
+\input{preface/acknowledgement}
+
+\tableofcontents
+\listoffigures
+\listoftables
+\clearpage
+
+% -----------------------------------------
+%           CHAPTERS
+% -----------------------------------------
+\input{chapters/chapter1_introduction}
+\input{chapters/theoretical_background}
+\input{chapters/chapter2_literature_review}
+\input{chapters/chapter3_methodology}
+\input{chapters/chapter4_results}
+\input{chapters/chapter5_discussion}
+\input{chapters/chapter6_conclusion}
+
+% -----------------------------------------
+%           REFERENCES
+% -----------------------------------------
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+% -----------------------------------------
+%           APPENDICES
+% -----------------------------------------
+\appendix
+\input{appendices/appendixA}
+\input{appendices/appendixB}
+
+\end{document}
