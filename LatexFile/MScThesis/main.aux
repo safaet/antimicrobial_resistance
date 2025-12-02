@@ -2,119 +2,241 @@
 \providecommand\hyper@newdestlabel[2]{}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
-\@writefile{toc}{\contentsline {chapter}{\numberline {1}Introduction}{7}{chapter.1}\protected@file@percent }
+\citation{oneill2016amr}
+\citation{amr2019lancet}
+\citation{ahmad2023ast}
+\citation{kumar2006sepsis}
+\citation{maguire2022ml}
+\@writefile{toc}{\contentsline {chapter}{\numberline {1}Introduction}{9}{chapter.1}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {1.1}Background}{7}{section.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {1.2}Problem Statement}{7}{section.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {1.3}Objectives}{7}{section.1.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {1.4}Significance of the Study}{7}{section.1.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {1.5}Thesis Organization}{7}{section.1.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {2}THEORETICAL BACKGROUND}{8}{chapter.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.1}Overview}{9}{section.1.1}\protected@file@percent }
+\citation{murray2022harrison}
+\citation{klein2018antibiotic}
+\citation{worldbank2017}
+\citation{cdc2019}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.1}{\ignorespaces Traditional AMR testing vs genomic + ML AMR prediction}}{10}{figure.1.1}\protected@file@percent }
+\newlabel{fig:amr_framework}{{1.1}{10}{Traditional AMR testing vs genomic + ML AMR prediction}{figure.1.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.2}Antimicrobial Resistance: A Global Health Crisis}{10}{section.1.2}\protected@file@percent }
+\citation{hunt2017ariba}
+\citation{moradi2018plos,ardila2025mlreview}
+\citation{sunuwar2021}
+\@writefile{toc}{\contentsline {section}{\numberline {1.3}Machine Learning Approaches for AMR Prediction}{11}{section.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.4}Motivation}{11}{section.1.4}\protected@file@percent }
+\citation{noman2023}
+\@writefile{toc}{\contentsline {section}{\numberline {1.5}Research Objectives}{12}{section.1.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.6}Challenges}{13}{section.1.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.6.1}Data-Related Challenges}{13}{subsection.1.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.6.2}Methodological Challenges}{13}{subsection.1.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.6.3}Broader Considerations}{14}{subsection.1.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.7}Contributions of This Thesis}{14}{section.1.7}\protected@file@percent }
+\citation{sunuwar2022machine}
+\@writefile{toc}{\contentsline {section}{\numberline {1.8}Organization of the Thesis}{15}{section.1.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.9}Summary}{16}{section.1.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {2}THEORETICAL BACKGROUND}{18}{chapter.2}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {2.1}Overview}{8}{section.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.2}Machine Learning Fundamentals}{8}{section.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Supervised Learning}{8}{subsection.2.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.3}Feature Engineering and Selection}{8}{section.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Feature Engineering}{8}{subsection.2.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Feature Selection}{9}{subsection.2.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.4}Class Imbalance Handling}{9}{section.2.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}The Imbalance Problem}{9}{subsection.2.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.2}SMOTE and SMOTE-Tomek}{9}{subsection.2.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.5}Classification Algorithms}{10}{section.2.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.1}Logistic Regression}{10}{subsection.2.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.2}Support Vector Machine (SVM)}{10}{subsection.2.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.3}Decision Tree}{10}{subsection.2.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.4}Random Forest}{10}{subsection.2.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.5}XGBoost (eXtreme Gradient Boosting)}{10}{subsection.2.5.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.6}Ensemble Learning}{11}{section.2.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.1}Ensemble Principles}{11}{subsection.2.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.2}Weighted Soft Voting}{11}{subsection.2.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.7}Model Evaluation Metrics}{11}{section.2.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.7.1}Confusion Matrix and Basic Metrics}{11}{subsection.2.7.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.7.2}ROC and Precision-Recall Curves}{11}{subsection.2.7.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.8}Model Interpretability}{12}{section.2.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.8.1}Importance of Interpretability}{12}{subsection.2.8.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.8.2}Permutation Feature Importance}{12}{subsection.2.8.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.8.3}SHAP (SHapley Additive exPlanations)}{12}{subsection.2.8.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.9}Hyperparameter Optimization}{13}{section.2.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.9.1}Grid Search with Cross-Validation}{13}{subsection.2.9.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.9.2}Cross-Validation Protocol}{13}{subsection.2.9.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.10}Data Leakage Prevention}{13}{section.2.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.10.1}Definition and Sources}{13}{subsection.2.10.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.10.2}Correct Protocol}{13}{subsection.2.10.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.11}Binary Classification Formulation}{14}{section.2.11}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.11.1}Problem Definition}{14}{subsection.2.11.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.11.2}Decision Threshold and Calibration}{14}{subsection.2.11.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.12}Chapter Summary}{14}{section.2.12}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.13}Chapter Summary}{14}{section.2.13}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Literature Review}{16}{chapter.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}Overview}{18}{section.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Machine Learning Fundamentals}{18}{section.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Supervised Learning}{18}{subsection.2.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Feature Engineering and Selection}{18}{section.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Feature Engineering}{18}{subsection.2.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Feature Selection}{19}{subsection.2.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}Class Imbalance Handling}{19}{section.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}The Imbalance Problem}{19}{subsection.2.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.2}SMOTE and SMOTE-Tomek}{19}{subsection.2.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.5}Classification Algorithms}{20}{section.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.1}Logistic Regression}{20}{subsection.2.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.2}Support Vector Machine (SVM)}{20}{subsection.2.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.3}Decision Tree}{20}{subsection.2.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.4}Random Forest}{20}{subsection.2.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.5}XGBoost (eXtreme Gradient Boosting)}{20}{subsection.2.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.6}Ensemble Learning}{21}{section.2.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.1}Ensemble Principles}{21}{subsection.2.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.2}Weighted Soft Voting}{21}{subsection.2.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.7}Model Evaluation Metrics}{21}{section.2.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.7.1}Confusion Matrix and Basic Metrics}{21}{subsection.2.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.7.2}ROC and Precision-Recall Curves}{21}{subsection.2.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.8}Model Interpretability}{22}{section.2.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.8.1}Importance of Interpretability}{22}{subsection.2.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.8.2}Permutation Feature Importance}{22}{subsection.2.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.8.3}SHAP (SHapley Additive exPlanations)}{22}{subsection.2.8.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.9}Hyperparameter Optimization}{23}{section.2.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.9.1}Grid Search with Cross-Validation}{23}{subsection.2.9.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.9.2}Cross-Validation Protocol}{23}{subsection.2.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.10}Data Leakage Prevention}{23}{section.2.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.10.1}Definition and Sources}{23}{subsection.2.10.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.10.2}Correct Protocol}{23}{subsection.2.10.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.11}Binary Classification Formulation}{24}{section.2.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.11.1}Problem Definition}{24}{subsection.2.11.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.11.2}Decision Threshold and Calibration}{24}{subsection.2.11.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.12}Chapter Summary}{24}{section.2.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.13}Chapter Summary}{24}{section.2.13}\protected@file@percent }
+\citation{feldgarden2021}
+\citation{ncbiPD}
+\citation{bortolaia2020}
+\citation{mcdermott2016}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Literature Review}{26}{chapter.3}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {3.1}Antimicrobial Resistance Overview}{16}{section.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}Machine Learning in Genomics}{16}{section.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.3}Related Works}{16}{section.3.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces \textcolor {customblue}{\textbf  {Summary of the main characteristics of the study.}}}}{16}{table.3.1}\protected@file@percent }
-\newlabel{tab:amr_summary}{{3.1}{16}{\textcolor {customblue}{\textbf {Summary of the main characteristics of the study.}}}{table.3.1}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Methodology}{17}{chapter.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Introduction}{26}{section.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}AMR Gene Databases and Detection Tools}{26}{section.3.2}\protected@file@percent }
+\citation{alcock2023}
+\citation{hughes2023}
+\citation{hunt2017}
+\citation{davis2016}
+\citation{her2018}
+\citation{moradi2018}
+\citation{nsubuga2024}
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Evolution of Machine Learning Approaches for AMR Prediction}{27}{section.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Rule-Based Detection (2010--2016)}{27}{subsection.3.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Classical Machine Learning (2016--2022)}{27}{subsection.3.3.2}\protected@file@percent }
+\citation{ardila2025}
+\citation{lopez2024}
+\citation{he2025}
+\citation{moradi2018}
+\citation{wang2025}
+\citation{sunuwar2021}
+\citation{sunuwar2022}
+\citation{nguyen2018}
+\citation{aslani2020}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}Deep Learning Approaches (2022--Present)}{28}{subsection.3.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Resistance Gene-Based Prediction Methods}{28}{section.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}Sunuwar \& Azad Framework}{28}{subsection.3.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}Limitations}{28}{subsection.3.4.2}\protected@file@percent }
+\citation{noman2023}
+\citation{kim2022}
+\citation{mather2020}
+\citation{kim2022}
+\citation{guyon2003}
+\@writefile{toc}{\contentsline {section}{\numberline {3.5}Whole Genome Sequence-Based Prediction Methods}{29}{section.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.1}K-mer Models}{29}{subsection.3.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.2}Critical Review of BioWeka (Noman et al., 2023)}{29}{subsection.3.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.3}Comparison of Paradigms}{29}{subsection.3.5.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces Comparison of Gene-Based vs. WGS-Based AMR Prediction}}{29}{table.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.6}Feature Engineering and Selection Strategies}{29}{section.3.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.1}Feature Engineering}{29}{subsection.3.6.1}\protected@file@percent }
+\citation{batista2004}
+\citation{chawla2002}
+\citation{yang2022}
+\citation{lundberg2017}
+\citation{khaledi2020}
+\citation{wang2025}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.2}Feature Selection}{30}{subsection.3.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.7}Class Imbalance Handling}{30}{section.3.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.8}Ensemble Methods and Interpretability}{30}{section.3.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.8.1}Ensemble Learning}{30}{subsection.3.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.8.2}Interpretability}{30}{subsection.3.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.9}Research Gaps Identified}{30}{section.3.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.10}Summary}{31}{section.3.10}\protected@file@percent }
+\citation{sunuwar2021}
+\citation{noman2023}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Methodology}{32}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Overview}{17}{section.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Dataset Collection and Preprocessing}{18}{section.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Data Source}{18}{subsection.4.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Binary Gene Matrix Construction}{18}{subsection.4.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}Feature Engineering}{18}{section.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Resistance Gene Load Score (R-Score)}{18}{subsection.4.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Justification and Impact Analysis}{18}{subsection.4.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.4}Feature Selection}{19}{section.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}Stage 1: ANOVA F-test}{19}{subsection.4.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}Stage 2: XGBoost Importance}{19}{subsection.4.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.3}Final Feature Set}{19}{subsection.4.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.5}Class Imbalance Handling}{19}{section.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.1}Resampling Strategy}{19}{subsection.4.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.6}Model Training and Ensemble Construction}{19}{section.4.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.1}Base Models}{19}{subsection.4.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.2}R-Blend Ensemble}{20}{subsection.4.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.7}Evaluation Metrics}{20}{section.4.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.8}Model Interpretability and Explainability}{20}{section.4.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.8.1}Permutation Importance}{20}{subsection.4.8.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.8.2}SHAP Values}{20}{subsection.4.8.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.8.3}Ensemble SHAP Aggregation}{20}{subsection.4.8.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.9}Experimental Design and Validation}{21}{section.4.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.10}Implementation}{21}{section.4.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Results}{22}{chapter.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Overview}{32}{section.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces End-to-end AMR prediction pipeline of the proposed method}}{33}{figure.4.1}\protected@file@percent }
+\newlabel{fig:pipeline}{{4.1}{33}{End-to-end AMR prediction pipeline of the proposed method}{figure.4.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Dataset Collection and Preprocessing}{33}{section.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Dataset Description}{33}{subsection.4.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Resistance Gene-Based Datasets (Sunuwar et al.)}{33}{subsection.4.2.2}\protected@file@percent }
+\citation{noman2023}
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Summary of the 12 resistance gene-based datasets}}{34}{table.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}WGS-Based Dataset (Noman et al.)}{34}{subsection.4.2.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Summary of Noman et al. WGS-based dataset}}{34}{table.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Class distribution across antibiotic--pathogen datasets}}{35}{figure.4.2}\protected@file@percent }
+\newlabel{fig:classdist}{{4.2}{35}{Class distribution across antibiotic--pathogen datasets}{figure.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.4}Binary Gene Matrix Construction}{35}{subsection.4.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Feature Engineering}{36}{section.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Resistance Gene Load Score (R-Score)}{36}{subsection.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}Feature Selection}{36}{section.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}Stage 1: ANOVA F-test}{36}{subsection.4.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}Stage 2: XGBoost Embedded Importance}{36}{subsection.4.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.3}Union-Based Integration}{36}{subsection.4.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.5}Class Imbalance Handling}{37}{section.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.1}Resampling Alternatives Evaluated}{37}{subsection.4.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.2}Selected Method: SMOTETomek}{37}{subsection.4.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.6}Model Training and Ensemble Construction}{38}{section.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.1}Base Models Evaluated}{38}{subsection.4.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.2}R-Blend Ensemble}{38}{subsection.4.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.3}Training Protocol}{38}{subsection.4.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.7}Evaluation Metrics}{39}{section.4.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.1}Metric Priority}{39}{subsection.4.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.2}Metric Definitions}{39}{subsection.4.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.8}Model Interpretability and Explainability}{39}{section.4.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.8.1}Permutation Importance}{39}{subsection.4.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.8.2}SHAP Explanations}{39}{subsection.4.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.8.3}Ensemble SHAP}{40}{subsection.4.8.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.9}Experimental Design and Validation}{40}{section.4.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.1}Ablation Studies}{40}{subsection.4.9.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.2}Cross-Dataset Generalization}{40}{subsection.4.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9.3}Comparative Analysis}{40}{subsection.4.9.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.10}Implementation Details}{41}{section.4.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.11}Chapter Summary}{41}{section.4.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Results}{42}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Descriptive Statistics}{22}{section.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Model Performance}{22}{section.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}Feature Importance}{22}{section.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Discussion}{23}{chapter.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Descriptive Statistics}{42}{section.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Model Performance}{42}{section.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Feature Importance}{42}{section.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Discussion}{43}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Interpretation of Findings}{23}{section.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Comparison with Previous Studies}{23}{section.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.3}Limitations}{23}{section.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Interpretation of Findings}{43}{section.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Comparison with Previous Studies}{43}{section.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Limitations}{43}{section.6.3}\protected@file@percent }
 \bibstyle{plainnat}
 \bibdata{references}
-\@writefile{toc}{\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{24}{chapter.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{44}{chapter.7}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {7.1}Conclusion}{24}{section.7.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7.2}Future Research Directions}{24}{section.7.2}\protected@file@percent }
-\bibcite{alignmentfree2021}{{1}{2021}{{Chang et~al.}}{{Chang, Lee, and Kim}}}
-\bibcite{bioset2vec2025}{{2}{2025}{{Kumar et~al.}}{{Kumar, Banerjee, and Roy}}}
-\bibcite{majek2021genomewide}{{3}{2021}{{Májek et~al.}}{{Májek, Oldřich, Jana, Kolář, and Petr}}}
-\bibcite{ncbi_pathogen_detection}{{4}{}{{NCBI Pathogen Detection}}{{}}}
-\bibcite{scikit2011}{{5}{2011}{{Pedregosa et~al.}}{{Pedregosa, Varoquaux, Gramfort, Michel, Thirion, et~al.}}}
-\bibcite{rannon2025dramma}{{6}{2025}{{Rannon et~al.}}{{Rannon, Smith, and Lee}}}
-\bibcite{sunuwar2022novelamr}{{7}{2022}{{Sunuwar and Azad}}{{}}}
-\bibcite{sunuwar2021mlframework}{{8}{2021}{{Sunuwar and Azad}}{{}}}
-\bibcite{tfidf_alignmentfree}{{9}{2021}{{Zhang and Wang}}{{}}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {A}Appendix A}{27}{appendix.A}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.1}Conclusion}{44}{section.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.2}Future Research Directions}{44}{section.7.2}\protected@file@percent }
+\bibcite{ahmad2023ast}{{1}{2023}{{Ahmad et~al.}}{{}}}
+\bibcite{alcock2023}{{2}{2023}{{Alcock et~al.}}{{}}}
+\bibcite{ardila2025mlreview}{{3}{2025{}}{{Ardila et~al.}}{{Ardila, Gonz{\'a}lez-Arroyave, and Tob{\'o}n}}}
+\bibcite{ardila2025}{{4}{2025{}}{{Ardila et~al.}}{{Ardila, González-Arroyave, and Tobón}}}
+\bibcite{batista2004}{{5}{2004}{{Batista et~al.}}{{Batista, Prati, and Monard}}}
+\bibcite{bortolaia2020}{{6}{2020}{{Bortolaia et~al.}}{{Bortolaia, Kaas, Ruppe, et~al.}}}
+\bibcite{chawla2002}{{7}{2002}{{Chawla et~al.}}{{Chawla, Bowyer, Hall, and Kegelmeyer}}}
+\bibcite{amr2019lancet}{{8}{2022}{{Collaborators}}{{}}}
+\bibcite{davis2016}{{9}{2016}{{Davis et~al.}}{{Davis, Wattam, Aziz, et~al.}}}
+\bibcite{feldgarden2021}{{10}{2021}{{Feldgarden et~al.}}{{Feldgarden, Brover, Haft, et~al.}}}
+\bibcite{cdc2019}{{11}{2019}{{for Disease~Control and Prevention}}{{}}}
+\bibcite{worldbank2017}{{12}{2017}{{Group}}{{}}}
+\bibcite{guyon2003}{{13}{2003}{{Guyon and Elisseeff}}{{}}}
+\bibcite{he2025}{{14}{2025}{{He et~al.}}{{}}}
+\bibcite{her2018}{{15}{2018}{{Her and Wu}}{{}}}
+\bibcite{hughes2023}{{16}{2017}{{Hughes and Andersson}}{{}}}
+\bibcite{hunt2017}{{17}{2017{}}{{Hunt et~al.}}{{Hunt, Mather, Sánchez-Busó, et~al.}}}
+\bibcite{hunt2017ariba}{{18}{2017{}}{{Hunt et~al.}}{{}}}
+\bibcite{khaledi2020}{{19}{2020}{{Khaledi et~al.}}{{}}}
+\bibcite{kim2022}{{20}{2022}{{Kim et~al.}}{{}}}
+\bibcite{klein2018antibiotic}{{21}{2018}{{Klein et~al.}}{{}}}
+\bibcite{kumar2006sepsis}{{22}{2006}{{Kumar et~al.}}{{}}}
+\bibcite{lundberg2017}{{23}{2017}{{Lundberg and Lee}}{{}}}
+\bibcite{lopez2024}{{24}{2024}{{López-Cortés et~al.}}{{}}}
+\bibcite{maguire2022ml}{{25}{2022}{{Maguire et~al.}}{{}}}
+\bibcite{mather2020}{{26}{2013}{{Mather et~al.}}{{}}}
+\bibcite{mcdermott2016}{{27}{2016}{{McDermott et~al.}}{{}}}
+\bibcite{moradi2018plos}{{28}{2018{}}{{Moradigaravand et~al.}}{{Moradigaravand, Palm, Farewell, Mustonen, Warringer, and Parts}}}
+\bibcite{moradi2018}{{29}{2018{}}{{Moradigaravand et~al.}}{{Moradigaravand, Palm, Farewell, et~al.}}}
+\bibcite{murray2022harrison}{{30}{2022}{{Murray et~al.}}{{}}}
+\bibcite{ncbiPD}{{31}{2024}{{NCBI Pathogen Detection}}{{}}}
+\bibcite{nguyen2018}{{32}{2018}{{Nguyen et~al.}}{{}}}
+\bibcite{noman2023}{{33}{2023}{{Noman et~al.}}{{Noman, Alshammari, Alyahya, Alsubai, et~al.}}}
+\bibcite{nsubuga2024}{{34}{2024}{{Nsubuga et~al.}}{{}}}
+\bibcite{oneill2016amr}{{35}{2016}{{O'Neill}}{{}}}
+\bibcite{sunuwar2021}{{36}{2021}{{Sunuwar and Azad}}{{}}}
+\bibcite{sunuwar2022}{{37}{2022{}}{{Sunuwar and Azad}}{{}}}
+\bibcite{sunuwar2022machine}{{38}{2022{}}{{Sunuwar and Azad}}{{}}}
+\bibcite{aslani2020}{{39}{2020}{{ValizadehAslani et~al.}}{{}}}
+\bibcite{wang2025}{{40}{2025}{{Wang et~al.}}{{}}}
+\bibcite{yang2022}{{41}{2019}{{Yang et~al.}}{{}}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}Appendix A}{49}{appendix.A}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {chapter}{\numberline {B}Appendix B}{28}{appendix.B}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {B}Appendix B}{50}{appendix.B}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\gdef \@abspage@last{29}
+\gdef \@abspage@last{51}

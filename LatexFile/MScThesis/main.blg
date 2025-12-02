@@ -3,48 +3,53 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: plainnat.bst
 Database file #1: references.bib
-Warning--entry type for "ncbi_pathogen_detection" isn't style-file defined
---line 81 of file references.bib
-Warning--empty year in ncbi_pathogen_detection
-You've used 9 entries,
+Warning--entry type for "oneill2016amr" isn't style-file defined
+--line 98 of file references.bib
+Warning--entry type for "ncbiPD" isn't style-file defined
+--line 271 of file references.bib
+Warning--entry type for "worldbank2017" isn't style-file defined
+--line 545 of file references.bib
+Warning--entry type for "cdc2019" isn't style-file defined
+--line 552 of file references.bib
+You've used 41 entries,
             2773 wiz_defined-function locations,
-            663 strings with 6712 characters,
-and the built_in function-call counts, 4328 in all, are:
-= -- 381
-> -- 267
-< -- 4
-+ -- 90
-- -- 81
-* -- 376
-:= -- 689
-add.period$ -- 35
-call.type$ -- 9
-change.case$ -- 53
-chr.to.int$ -- 9
-cite$ -- 19
-duplicate$ -- 180
-empty$ -- 339
-format.name$ -- 96
-if$ -- 890
-int.to.chr$ -- 1
+            851 strings with 11840 characters,
+and the built_in function-call counts, 19038 in all, are:
+= -- 1765
+> -- 991
+< -- 31
++ -- 345
+- -- 300
+* -- 1572
+:= -- 2964
+add.period$ -- 149
+call.type$ -- 41
+change.case$ -- 200
+chr.to.int$ -- 37
+cite$ -- 82
+duplicate$ -- 816
+empty$ -- 1621
+format.name$ -- 375
+if$ -- 3996
+int.to.chr$ -- 5
 int.to.str$ -- 1
-missing$ -- 8
-newline$ -- 61
-num.names$ -- 36
-pop$ -- 91
+missing$ -- 37
+newline$ -- 238
+num.names$ -- 164
+pop$ -- 337
 preamble$ -- 1
-purify$ -- 44
+purify$ -- 158
 quote$ -- 0
-skip$ -- 139
+skip$ -- 617
 stack$ -- 0
-substring$ -- 145
-swap$ -- 9
-text.length$ -- 0
+substring$ -- 929
+swap$ -- 50
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 99
-warning$ -- 1
-while$ -- 36
+type$ -- 451
+warning$ -- 0
+while$ -- 175
 width$ -- 0
-write$ -- 138
-(There were 2 warnings)
+write$ -- 589
+(There were 4 warnings)

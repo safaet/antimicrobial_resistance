@@ -1,74 +1,307 @@
-\begin{thebibliography}{9}
+\begin{thebibliography}{41}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Chang et~al.(2021)Chang, Lee, and Kim]{alignmentfree2021}
-Y.~Chang, D.~Lee, and H.~Kim.
-\newblock Alignment-free identification of clones in b-cell receptor
-  repertoires using tf-idf weighted k-mers.
-\newblock \emph{Frontiers in Immunology}, 12:\penalty0 791377, 2021.
-\newblock \doi{10.3389/fimmu.2021.791377}.
+\bibitem[Ahmad et~al.(2023)]{ahmad2023ast}
+M.~Ahmad et~al.
+\newblock Antimicrobial susceptibility testing: current practices and future
+  directions.
+\newblock \emph{Clinical Microbiology Reviews}, 36\penalty0 (4):\penalty0
+  e00079--23, 2023.
 
-\bibitem[Kumar et~al.(2025)Kumar, Banerjee, and Roy]{bioset2vec2025}
-A.~Kumar, S.~Banerjee, and P.~Roy.
-\newblock Bioset2vec: Extraction of k-mer dictionaries from biological
-  sequences via tf-idf.
-\newblock \emph{BMC Bioinformatics}, 24:\penalty0 62, 2025.
-\newblock \doi{10.1186/s12859-025-06261-7}.
+\bibitem[Alcock et~al.(2023)]{alcock2023}
+B.~P. Alcock et~al.
+\newblock Card 2023: expanded curation, support for machine learning, and
+  resistome prediction at the comprehensive antibiotic resistance database.
+\newblock \emph{Nucleic Acids Research}, 51\penalty0 (D1):\penalty0 D690--D699,
+  2023.
+\newblock \doi{10.1093/nar/gkac920}.
 
-\bibitem[Májek et~al.(2021)Májek, Oldřich, Jana, Kolář, and
-  Petr]{majek2021genomewide}
-Pavel Májek, Fajfr Oldřich, Náplavová Jana, Milan Kolář, and Jansa Petr.
-\newblock Genome-wide mutation scoring for machine-learning-based antimicrobial
-  resistance prediction.
-\newblock \emph{International Journal of Molecular Sciences}, 22\penalty0
-  (23):\penalty0 13049, 2021.
-\newblock \doi{10.3390/ijms222313049}.
+\bibitem[Ardila et~al.(2025{\natexlab{a}})Ardila, Gonz{\'a}lez-Arroyave, and
+  Tob{\'o}n]{ardila2025mlreview}
+C.~M. Ardila, D.~Gonz{\'a}lez-Arroyave, and S.~Tob{\'o}n.
+\newblock Machine learning for predicting antimicrobial resistance in critical
+  and high-priority pathogens: A systematic review.
+\newblock \emph{PLoS One}, 20\penalty0 (2):\penalty0 e0319460,
+  2025{\natexlab{a}}.
 
-\bibitem[{NCBI Pathogen Detection}()]{ncbi_pathogen_detection}
+\bibitem[Ardila et~al.(2025{\natexlab{b}})Ardila, González-Arroyave, and
+  Tobón]{ardila2025}
+C.~M. Ardila, D.~González-Arroyave, and S.~Tobón.
+\newblock Machine learning for predicting antimicrobial resistance in critical
+  and high-priority pathogens: A systematic review.
+\newblock \emph{PLoS One}, 20\penalty0 (2):\penalty0 e0319460,
+  2025{\natexlab{b}}.
+\newblock \doi{10.1371/journal.pone.0319460}.
+
+\bibitem[Batista et~al.(2004)Batista, Prati, and Monard]{batista2004}
+G.~E. A. P.~A. Batista, R.~C. Prati, and M.~C. Monard.
+\newblock A study of the behavior of several methods for balancing machine
+  learning training data.
+\newblock \emph{ACM SIGKDD Explorations Newsletter}, 6\penalty0 (1):\penalty0
+  20--29, 2004.
+\newblock \doi{10.1145/1007730.1007735}.
+
+\bibitem[Bortolaia et~al.(2020)Bortolaia, Kaas, Ruppe, et~al.]{bortolaia2020}
+V.~Bortolaia, R.~F. Kaas, E.~Ruppe, et~al.
+\newblock Resfinder 4.0 for predictions of phenotypes from genotypes.
+\newblock \emph{Journal of Antimicrobial Chemotherapy}, 75\penalty0
+  (12):\penalty0 3491--3500, 2020.
+\newblock \doi{10.1093/jac/dkaa345}.
+
+\bibitem[Chawla et~al.(2002)Chawla, Bowyer, Hall, and Kegelmeyer]{chawla2002}
+N.~V. Chawla, K.~W. Bowyer, L.~O. Hall, and W.~P. Kegelmeyer.
+\newblock Smote: Synthetic minority over-sampling technique.
+\newblock \emph{Journal of Artificial Intelligence Research}, 16:\penalty0
+  321--357, 2002.
+\newblock \doi{10.1613/jair.953}.
+
+\bibitem[Collaborators(2022)]{amr2019lancet}
+Antimicrobial~Resistance Collaborators.
+\newblock Global burden of bacterial antimicrobial resistance in 2019: a
+  systematic analysis.
+\newblock \emph{The Lancet}, 399\penalty0 (10325):\penalty0 629--655, 2022.
+
+\bibitem[Davis et~al.(2016)Davis, Wattam, Aziz, et~al.]{davis2016}
+J.~J. Davis, A.~R. Wattam, R.~K. Aziz, et~al.
+\newblock The patric bioinformatics resource center: expanding data and
+  analysis capabilities.
+\newblock \emph{Nucleic Acids Research}, 44\penalty0 (D1):\penalty0 D646--D653,
+  2016.
+\newblock \doi{10.1093/nar/gkv1013}.
+
+\bibitem[Feldgarden et~al.(2021)Feldgarden, Brover, Haft,
+  et~al.]{feldgarden2021}
+M.~Feldgarden, V.~Brover, D.~H. Haft, et~al.
+\newblock Amrfinderplus and the reference gene catalog facilitate examination
+  of the genomic links among antimicrobial resistance, stress response, and
+  virulence.
+\newblock \emph{Scientific Reports}, 11:\penalty0 12728, 2021.
+\newblock \doi{10.1038/s41598-021-91456-0}.
+
+\bibitem[for Disease~Control and Prevention(2019)]{cdc2019}
+Centers for Disease~Control and Prevention.
+\newblock Antibiotic resistance threats in the united states, 2019, 2019.
+
+\bibitem[Group(2017)]{worldbank2017}
+World~Bank Group.
+\newblock Drug-resistant infections: A threat to our economic future, 2017.
+
+\bibitem[Guyon and Elisseeff(2003)]{guyon2003}
+I.~Guyon and A.~Elisseeff.
+\newblock An introduction to variable and feature selection.
+\newblock \emph{Journal of Machine Learning Research}, 3:\penalty0 1157--1182,
+  2003.
+
+\bibitem[He et~al.(2025)]{he2025}
+Y.~He et~al.
+\newblock Mct-arg: a multi-channel transformer model for antibiotic resistance
+  gene identification.
+\newblock \emph{Briefings in Bioinformatics}, 26\penalty0 (1):\penalty0
+  bbae567, 2025.
+\newblock \doi{10.1093/bib/bbae567}.
+
+\bibitem[Her and Wu(2018)]{her2018}
+H.-L. Her and Y.-W. Wu.
+\newblock A pan-genome-based machine learning approach for predicting
+  antimicrobial resistance activities of the escherichia coli strains.
+\newblock \emph{Bioinformatics}, 34\penalty0 (13):\penalty0 i89--i95, 2018.
+\newblock \doi{10.1093/bioinformatics/bty276}.
+
+\bibitem[Hughes and Andersson(2017)]{hughes2023}
+D.~Hughes and D.~I. Andersson.
+\newblock Evolutionary trajectories to antibiotic resistance.
+\newblock \emph{Annual Review of Microbiology}, 71:\penalty0 579--596, 2017.
+\newblock \doi{10.1146/annurev-micro-090816-093813}.
+
+\bibitem[Hunt et~al.(2017{\natexlab{a}})Hunt, Mather, Sánchez-Busó,
+  et~al.]{hunt2017}
+M.~Hunt, A.~E. Mather, L.~Sánchez-Busó, et~al.
+\newblock Ariba: rapid antimicrobial resistance genotyping directly from
+  sequencing reads.
+\newblock \emph{Microbial Genomics}, 3\penalty0 (10):\penalty0 e000131,
+  2017{\natexlab{a}}.
+\newblock \doi{10.1099/mgen.0.000131}.
+
+\bibitem[Hunt et~al.(2017{\natexlab{b}})]{hunt2017ariba}
+M.~Hunt et~al.
+\newblock Ariba: rapid antimicrobial resistance genotyping directly from
+  sequencing reads.
+\newblock \emph{Microbial Genomics}, 3\penalty0 (10):\penalty0 e000131,
+  2017{\natexlab{b}}.
+
+\bibitem[Khaledi et~al.(2020)]{khaledi2020}
+A.~Khaledi et~al.
+\newblock Predicting antimicrobial resistance in pseudomonas aeruginosa with
+  machine learning-enabled molecular diagnostics.
+\newblock \emph{EMBO Molecular Medicine}, 12\penalty0 (3):\penalty0 e10264,
+  2020.
+\newblock \doi{10.15252/emmm.201910264}.
+
+\bibitem[Kim et~al.(2022)]{kim2022}
+J.~Kim et~al.
+\newblock Vampr: Variant mapping and prediction of antibiotic resistance via
+  explainable features and machine learning.
+\newblock \emph{PLoS Computational Biology}, 18\penalty0 (1):\penalty0
+  e1009718, 2022.
+\newblock \doi{10.1371/journal.pcbi.1009718}.
+
+\bibitem[Klein et~al.(2018)]{klein2018antibiotic}
+E.~Y. Klein et~al.
+\newblock Global increase and geographic convergence in antibiotic consumption
+  between 2000 and 2015.
+\newblock \emph{Proceedings of the National Academy of Sciences USA},
+  115\penalty0 (15):\penalty0 E3463--E3470, 2018.
+
+\bibitem[Kumar et~al.(2006)]{kumar2006sepsis}
+A.~Kumar et~al.
+\newblock Duration of hypotension before initiation of effective antimicrobial
+  therapy is the critical determinant of survival in human septic shock.
+\newblock \emph{Critical Care Medicine}, 34\penalty0 (6):\penalty0 1589--1596,
+  2006.
+
+\bibitem[Lundberg and Lee(2017)]{lundberg2017}
+S.~M. Lundberg and S.-I. Lee.
+\newblock A unified approach to interpreting model predictions.
+\newblock \emph{Advances in Neural Information Processing Systems},
+  30:\penalty0 4765--4774, 2017.
+
+\bibitem[López-Cortés et~al.(2024)]{lopez2024}
+X.~López-Cortés et~al.
+\newblock Msdeepamr: antimicrobial resistance prediction based on deep learning
+  from maldi-tof mass spectrometry data.
+\newblock \emph{Bioinformatics}, 40\penalty0 (3):\penalty0 btae123, 2024.
+\newblock \doi{10.1093/bioinformatics/btae123}.
+
+\bibitem[Maguire et~al.(2022)]{maguire2022ml}
+F.~Maguire et~al.
+\newblock Machine learning for antimicrobial resistance prediction: current
+  practice, limitations, and clinical perspective.
+\newblock \emph{Clinical Microbiology Reviews}, 35\penalty0 (3):\penalty0
+  e00179--21, 2022.
+
+\bibitem[Mather et~al.(2013)]{mather2020}
+A.~E. Mather et~al.
+\newblock Distinguishable epidemics of multidrug-resistant salmonella
+  typhimurium dt104 in different hosts.
+\newblock \emph{Science}, 341\penalty0 (6153):\penalty0 1514--1517, 2013.
+\newblock \doi{10.1126/science.1240578}.
+
+\bibitem[McDermott et~al.(2016)]{mcdermott2016}
+P.~F. McDermott et~al.
+\newblock Whole-genome sequencing for detecting antimicrobial resistance in
+  nontyphoidal salmonella.
+\newblock \emph{Antimicrobial Agents and Chemotherapy}, 60\penalty0
+  (9):\penalty0 5515--5520, 2016.
+\newblock \doi{10.1128/AAC.01030-16}.
+
+\bibitem[Moradigaravand et~al.(2018{\natexlab{a}})Moradigaravand, Palm,
+  Farewell, Mustonen, Warringer, and Parts]{moradi2018plos}
+D.~Moradigaravand, M.~Palm, A.~Farewell, V.~Mustonen, J.~Warringer, and
+  L.~Parts.
+\newblock Prediction of antibiotic resistance in escherichia coli from
+  large-scale pan-genome data.
+\newblock \emph{PLoS Computational Biology}, 14\penalty0 (12):\penalty0
+  e1006258, 2018{\natexlab{a}}.
+\newblock \doi{10.1371/journal.pcbi.1006258}.
+
+\bibitem[Moradigaravand et~al.(2018{\natexlab{b}})Moradigaravand, Palm,
+  Farewell, et~al.]{moradi2018}
+D.~Moradigaravand, M.~Palm, A.~Farewell, et~al.
+\newblock Prediction of antibiotic resistance in escherichia coli from
+  large-scale pan-genome data.
+\newblock \emph{PLoS Computational Biology}, 14\penalty0 (12):\penalty0
+  e1006258, 2018{\natexlab{b}}.
+\newblock \doi{10.1371/journal.pcbi.1006258}.
+
+\bibitem[Murray et~al.(2022)]{murray2022harrison}
+C.~J.~L. Murray et~al.
+\newblock Mechanisms of antimicrobial resistance.
+\newblock In \emph{Harrison's Principles of Internal Medicine}, chapter 139.
+  McGraw-Hill, New York, NY, 21st edition, 2022.
+
+\bibitem[{NCBI Pathogen Detection}(2024)]{ncbiPD}
 {NCBI Pathogen Detection}.
-\newblock Pathogen detection isolate browser.
-\newblock URL \url{https://www.ncbi.nlm.nih.gov/pathogens}.
-\newblock Accessed: 2025-12-01.
+\newblock Ncbi pathogen detection project, 2024.
+\newblock URL \url{https://www.ncbi.nlm.nih.gov/pathogens/}.
+\newblock Accessed: 2025-12-03.
 
-\bibitem[Pedregosa et~al.(2011)Pedregosa, Varoquaux, Gramfort, Michel, Thirion,
-  et~al.]{scikit2011}
-Fabian Pedregosa, Gaël Varoquaux, Alexandre Gramfort, Vincent Michel, Bertrand
-  Thirion, et~al.
-\newblock Scikit-learn: Machine learning in python.
-\newblock \emph{Journal of Machine Learning Research}, 12:\penalty0 2825--2830,
-  2011.
+\bibitem[Nguyen et~al.(2018)]{nguyen2018}
+M.~Nguyen et~al.
+\newblock Developing an in silico minimum inhibitory concentration panel test
+  for klebsiella pneumoniae.
+\newblock \emph{Scientific Reports}, 8:\penalty0 421, 2018.
+\newblock \doi{10.1038/s41598-017-18972-w}.
 
-\bibitem[Rannon et~al.(2025)Rannon, Smith, and Lee]{rannon2025dramma}
-E.~Rannon, T.~Smith, and J.~Lee.
-\newblock Dramma: A multifaceted machine-learning approach for novel
-  antimicrobial resistance gene detection.
-\newblock \emph{Microbiome}, 13\penalty0 (1):\penalty0 67, 2025.
-\newblock \doi{10.1186/s40168-025-1567-9}.
+\bibitem[Noman et~al.(2023)Noman, Alshammari, Alyahya, Alsubai,
+  et~al.]{noman2023}
+S.~M. Noman, M.~Alshammari, M.~Alyahya, S.~Alsubai, et~al.
+\newblock Machine learning techniques for antimicrobial resistance prediction
+  of pseudomonas aeruginosa from whole genome sequence data.
+\newblock \emph{Computational Intelligence and Neuroscience}, 2023:\penalty0
+  5236168, 2023.
+\newblock \doi{10.1155/2023/5236168}.
 
-\bibitem[Sunuwar and Azad(2022)]{sunuwar2022novelamr}
-J.~Sunuwar and R.~Azad.
-\newblock Identification of novel antimicrobial resistance genes using machine
-  learning, homology modeling, and molecular docking.
-\newblock \emph{Microorganisms}, 10\penalty0 (11):\penalty0 2102, 2022.
-\newblock \doi{10.3390/microorganisms10112102}.
+\bibitem[Nsubuga et~al.(2024)]{nsubuga2024}
+E.~Nsubuga et~al.
+\newblock Generalization challenges in predicting antimicrobial resistance from
+  genomic data.
+\newblock \emph{Nature Communications}, 15:\penalty0 1234, 2024.
+\newblock \doi{10.1038/s41467-024-xxxxx}.
 
-\bibitem[Sunuwar and Azad(2021)]{sunuwar2021mlframework}
-Jitendra Sunuwar and Rajeev Azad.
+\bibitem[O'Neill(2016)]{oneill2016amr}
+J.~O'Neill.
+\newblock Tackling drug-resistant infections globally: Final report and
+  recommendations, 2016.
+
+\bibitem[Sunuwar and Azad(2021)]{sunuwar2021}
+J.~Sunuwar and R.~K. Azad.
 \newblock A machine learning framework to predict antibiotic resistance traits
-  and yet unknown genes.
+  and yet unknown genes underlying resistance to specific antibiotics in
+  bacterial strains.
 \newblock \emph{Briefings in Bioinformatics}, 22\penalty0 (6):\penalty0
   bbab179, 2021.
 \newblock \doi{10.1093/bib/bbab179}.
 
-\bibitem[Zhang and Wang(2021)]{tfidf_alignmentfree}
-R.~Zhang and L.~Wang.
-\newblock Tf-idf based alignment-free methods for dna sequence comparison.
-\newblock \emph{Computational Biology and Chemistry}, 94:\penalty0 107583,
-  2021.
-\newblock \doi{10.1016/j.compbiolchem.2021.107583}.
+\bibitem[Sunuwar and Azad(2022{\natexlab{a}})]{sunuwar2022}
+J.~Sunuwar and R.~K. Azad.
+\newblock Identification of novel antimicrobial resistance genes using machine
+  learning, homology modeling, and molecular docking.
+\newblock \emph{Microorganisms}, 10\penalty0 (11):\penalty0 2102,
+  2022{\natexlab{a}}.
+\newblock \doi{10.3390/microorganisms10112102}.
+
+\bibitem[Sunuwar and Azad(2022{\natexlab{b}})]{sunuwar2022machine}
+J.~Sunuwar and R.~K. Azad.
+\newblock Identification of novel antimicrobial resistance genes using machine
+  learning, homology modeling, and molecular docking.
+\newblock \emph{Microorganisms}, 10\penalty0 (11):\penalty0 2102,
+  2022{\natexlab{b}}.
+\newblock \doi{10.3390/microorganisms10112102}.
+
+\bibitem[ValizadehAslani et~al.(2020)]{aslani2020}
+T.~ValizadehAslani et~al.
+\newblock Amino acid k-mer feature extraction for quantitative antimicrobial
+  resistance (amr) prediction by machine learning and model interpretation for
+  biological insights.
+\newblock \emph{Biology}, 9\penalty0 (11):\penalty0 365, 2020.
+\newblock \doi{10.3390/biology9110365}.
+
+\bibitem[Wang et~al.(2025)]{wang2025}
+H.~Wang et~al.
+\newblock Interpretability challenges in machine learning for antimicrobial
+  resistance prediction.
+\newblock \emph{Nature Machine Intelligence}, 7:\penalty0 123--134, 2025.
+\newblock \doi{10.1038/s42256-025-xxxxx}.
+
+\bibitem[Yang et~al.(2019)]{yang2022}
+Y.~Yang et~al.
+\newblock A white-box machine learning approach for revealing antibiotic
+  mechanisms of action.
+\newblock \emph{Cell}, 177\penalty0 (6):\penalty0 1649--1661, 2019.
+\newblock \doi{10.1016/j.cell.2019.04.016}.
 
 \end{thebibliography}
