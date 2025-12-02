@@ -1,779 +1,979 @@
-\chapter{Theoretical Background}
+\chapter{THEORETICAL BACKGROUND}
+
 \section{Overview}
-A collection of cells called colon polyps forms on the colon's epithelium. Colonic polyps can be
 
-discovered and removed during a colonoscopy before they develop into cancer. However, around
+Antimicrobial Resistance (AMR) prediction from genomic data represents a critical intersection of machine learning and computational biology. This chapter provides a comprehensive theoretical foundation for the machine learning techniques, feature engineering methods, ensemble learning approaches, and model interpretability frameworks employed in this research. The theoretical concepts presented here underpin the methodology for predicting AMR from resistance gene profiles, offering both computational efficiency and biological interpretability. Understanding these fundamental concepts is essential for comprehending the rationale behind the proposed methodology and the interpretation of experimental results.
 
-one-fourth of the polyps can be missed due to their small size, location, or human mistake [10].
+\section{Machine Learning Fundamentals}
 
-use a deep learning model capable of identifying and categorizing the polyp. One type of deep
+\subsection{Supervised Learning}
 
-learning methodology is convolutional neural networks. The theoretical underpinnings of colon
+Supervised learning is a machine learning paradigm where models learn from labeled training data to make predictions on unseen data. Given a dataset $D = \{(x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)\}$, where $x_i$ represents the feature vector and $y_i$ represents the corresponding label, the objective is to learn a mapping function $f: X \rightarrow Y$ that accurately predicts the label $y$ for a new input $x$.
 
-polyp identification and categorization were discussed in this chapter.
+In the context of binary classification, which is the focus of this research, the target variable $y \in \{0, 1\}$, where $y = 1$ typically represents the positive class (resistant) and $y = 0$ represents the negative class (susceptible).
 
-\section{Deep Learning}
-One of the most common AI techniques used for processing big data is machine learning, a self-
+\subsection{Training and Testing}
 
-adaptive algorithm that gets increasingly better analysis and patterns with experience or with newly
+The supervised learning process involves partitioning the available data into training and testing sets. The training set is used to fit the model parameters, while the testing set provides an unbiased evaluation of the model's generalization capability on unseen data. A common practice is stratified splitting, which preserves the proportion of classes in both training and testing sets, particularly important when dealing with imbalanced datasets.
 
-added data.
+\subsection{Cross-Validation}
 
-Traditional machine learning was confined is the way it processes data, as some functionalities
+Cross-validation is a resampling technique used to assess model performance and tune hyperparameters while maximizing the use of available data. In $k$-fold cross-validation, the training data is divided into $k$ equally sized folds. The model is trained $k$ times, each time using $k-1$ folds for training and the remaining fold for validation. The final performance estimate is the average across all $k$ iterations.
 
-needed some exactly specific programming to perform some specific tasks. The traditional
+Stratified $k$-fold cross-validation extends this approach by ensuring that each fold maintains the same class distribution as the original dataset, which is particularly important for imbalanced classification problems.
 
-machine-learning could not receive raw data as input and transform it into a suitable
+\section{Feature Engineering}
 
-understandable representation without the help of human brains. A machine-learning algorithm
+\subsection{Definition and Importance}
 
-required labeled/structured data to understand the differences between images of cats and dogs,
+Feature engineering is the process of creating new features or transforming existing features to improve model performance. Effective feature engineering can capture domain knowledge, reveal hidden patterns, and reduce the dimensionality of the problem space. In machine learning, the quality of features often has a greater impact on model performance than the choice of algorithm itself.
 
-learn the classification and then produce output.
+\subsection{Feature Scaling and Normalization}
 
-On the contrary, a subset of machine learning where algorithms are created and function similar
+Feature scaling transforms numerical features to a common scale without distorting differences in the ranges of values. Min-Max normalization is a scaling technique that transforms features to a specified range, typically $[0, 1]$:
 
-to those in machine learning, but there are numerous layers of these algorithms- each providing a
+\begin{equation}
+x' = \frac{x - \min(x)}{\max(x) - \min(x)}
+\end{equation}
 
-different interpretation to the data it feeds on. It did not require any labeled/structured data, as it
+where $x$ represents the original feature value, $\min(x)$ and $\max(x)$ are the minimum and maximum values of the feature across all samples, and $x'$ is the normalized value.
 
-relied on the different outputs processed by each layer.
+This transformation is particularly important when features have different scales, as many machine learning algorithms are sensitive to feature magnitudes.
 
-Deep learning is capable of using raw data and can automatically learn the features required to
+\subsection{Derived Features}
 
-perform the specific identification task. The learning method can be supervised, semi-supervised,
+Derived features are constructed by combining or transforming existing features based on domain knowledge or statistical relationships. These engineered features can capture complex interactions or aggregate information that may not be explicitly represented in the raw data. Common approaches include:
 
-or unsupervised. This learning ability is based on stacking several non-linear modules as a stack
+\begin{itemize}
+    \item \textbf{Aggregation features}: Summarizing multiple features into a single value (e.g., sum, mean, count)
+    \item \textbf{Ratio features}: Computing ratios between related features
+    \item \textbf{Interaction features}: Capturing multiplicative or polynomial relationships between features
+    \item \textbf{Binning features}: Discretizing continuous features into categorical bins
+\end{itemize}
 
-of multiple layers that convert the raw input data into a higher label more abstract representation
+\section{Feature Selection}
 
-[5]. Each successive layer uses the output from the previous layer as input for the next layer. So,
+\subsection{Motivation for Feature Selection}
 
-it is like a cascade of multiple layers.
+Feature selection is the process of identifying and retaining the most relevant features while removing irrelevant or redundant ones. In high-dimensional datasets, feature selection addresses several critical challenges:
 
-It requires high-end machines contrary to traditional Machine Learning algorithms. GPU has
+\begin{itemize}
+    \item \textbf{Curse of dimensionality}: As the number of features increases, the volume of the feature space grows exponentially, making data increasingly sparse and models prone to overfitting
+    \item \textbf{Computational efficiency}: Fewer features reduce training time and memory requirements
+    \item \textbf{Model interpretability}: Simpler models with fewer features are easier to understand and explain
+    \item \textbf{Noise reduction}: Removing irrelevant features can improve model generalization by reducing noise
+\end{itemize}
 
-become an integral part now to execute any Deep Learning algorithm. In traditional Machine
+\subsection{Filter Methods}
 
-learning techniques, most of the applied features need to be identified by a domain expert in order
+Filter methods evaluate features independently of any specific machine learning algorithm, using statistical measures to score feature relevance. These methods are computationally efficient and model-agnostic.
 
-to reduce the complexity of the data and make patterns more visible to learning algorithms to work.
+\subsubsection{ANOVA F-test}
 
-The biggest advantage of Deep Learning algorithms as discussed before are that they try to learn
+Analysis of Variance (ANOVA) F-test is a statistical technique used to assess whether the means of different groups are significantly different. For feature selection in classification, the F-statistic measures the ratio of between-class variance to within-class variance:
 
-high-level features from data in an incremental manner. This eliminates the need for domain
+\begin{equation}
+F = \frac{\text{Between-group variability}}{\text{Within-group variability}}
+\end{equation}
 
-expertise and hardcore feature extraction.
+A higher F-statistic indicates that the feature exhibits greater separation between classes, suggesting higher predictive value. Features are typically ranked by their F-statistic, and those with p-values below a specified threshold are selected.
 
-\begin{figure}[ht]
+The advantages of ANOVA F-test include:
+\begin{itemize}
+    \item Fast computation, suitable for high-dimensional data
+    \item Model-independent, providing objective feature ranking
+    \item Statistical foundation with interpretable significance levels
+\end{itemize}
+
+However, ANOVA assumes linear relationships and cannot capture complex non-linear interactions between features and the target variable.
+
+\subsection{Embedded Methods}
+
+Embedded methods perform feature selection during the model training process. The feature selection mechanism is integrated into the learning algorithm itself, allowing the model to determine which features contribute most to prediction accuracy.
+
+\subsubsection{Tree-Based Feature Importance}
+
+Decision tree-based algorithms naturally provide feature importance scores based on how much each feature contributes to reducing impurity (e.g., Gini impurity or entropy) across all splits in the tree. For ensemble methods like Random Forest and XGBoost, feature importance is aggregated across all trees in the ensemble.
+
+\subsubsection{Gain-Based Importance}
+
+In gradient boosting algorithms like XGBoost, gain-based importance measures the average improvement in the loss function contributed by each feature across all trees. Features that lead to larger reductions in loss receive higher importance scores:
+
+\begin{equation}
+\text{Importance}(\text{feature}) = \sum (\text{Gain from splits using this feature})
+\end{equation}
+
+Gain-based importance has several advantages:
+\begin{itemize}
+    \item Captures non-linear relationships and complex interactions
+    \item Considers feature contributions in the context of other features
+    \item Naturally handles feature redundancy through the boosting process
+\end{itemize}
+
+\subsection{Cumulative Importance Threshold}
+
+When using model-based feature importance, a cumulative importance threshold approach can be employed. Features are ranked by importance in descending order, and features are selected sequentially until their cumulative importance reaches a specified percentage (e.g., 85\%) of the total importance:
+
+\begin{equation}
+\text{Selected Features} = \{\text{features where cumulative importance} \leq \text{threshold}\}
+\end{equation}
+
+This approach balances model complexity and performance by retaining the most informative features while discarding those with minimal contribution.
+
+\subsection{Hybrid Feature Selection}
+
+Hybrid feature selection strategies combine multiple feature selection methods to leverage their complementary strengths. Common approaches include:
+
+\begin{itemize}
+    \item \textbf{Intersection}: Selecting features identified by all methods (conservative approach)
+    \item \textbf{Union}: Selecting features identified by any method (comprehensive approach)
+    \item \textbf{Sequential}: Applying methods in stages, with each stage refining the feature set
+\end{itemize}
+
+The union-based approach is particularly effective when different methods capture distinct aspects of feature relevance. For example, combining statistical filter methods (which identify features with strong univariate relationships) with embedded methods (which capture multivariate interactions) can provide comprehensive feature coverage.
+
+\section{Class Imbalance Handling}
+
+\subsection{The Class Imbalance Problem}
+
+Class imbalance occurs when the distribution of samples across classes is uneven, with one class (majority class) significantly outnumbering the other (minority class). This is a common challenge in real-world classification problems, including medical diagnosis, fraud detection, and anomaly detection.
+
+Imbalanced datasets pose several challenges:
+\begin{itemize}
+    \item \textbf{Bias toward majority class}: Models may achieve high overall accuracy by simply predicting the majority class
+    \item \textbf{Poor minority class performance}: The minority class, often the class of interest, may be poorly predicted
+    \item \textbf{Misleading evaluation metrics}: Accuracy alone can be misleading when classes are imbalanced
+\end{itemize}
+
+The imbalance ratio is defined as:
+
+\begin{equation}
+\text{Imbalance Ratio} = \frac{\text{Number of majority class samples}}{\text{Number of minority class samples}}
+\end{equation}
+
+Ratios greater than 1.5:1 are generally considered imbalanced, with ratios above 3:1 representing severe imbalance.
+
+\subsection{Resampling Techniques}
+
+Resampling techniques address class imbalance by modifying the training data distribution. These methods can be categorized into oversampling (increasing minority class samples) and undersampling (decreasing majority class samples).
+
+\subsubsection{Random Oversampling}
+
+Random oversampling duplicates randomly selected minority class samples until class balance is achieved. While simple and effective, this approach can lead to overfitting as the model may memorize the duplicated samples rather than learning generalizable patterns.
+
+\subsubsection{Random Undersampling}
+
+Random undersampling removes randomly selected majority class samples to balance the dataset. This approach can lead to information loss, as potentially informative majority class samples are discarded.
+
+\subsubsection{SMOTE (Synthetic Minority Over-sampling Technique)}
+
+SMOTE generates synthetic minority class samples by interpolating between existing minority class instances. For each minority class sample $x$, SMOTE:
+
+\begin{enumerate}
+    \item Identifies $k$ nearest minority class neighbors
+    \item Randomly selects one neighbor $x_{nn}$
+    \item Generates a synthetic sample along the line connecting $x$ and $x_{nn}$:
+\end{enumerate}
+
+\begin{equation}
+x_{\text{synthetic}} = x + \lambda \times (x_{nn} - x)
+\end{equation}
+
+where $\lambda \in [0, 1]$ is a random number.
+
+SMOTE advantages:
+\begin{itemize}
+    \item Creates diverse synthetic samples rather than duplicates
+    \item Reduces overfitting risk compared to random oversampling
+    \item Generalizes the decision boundary for the minority class
+\end{itemize}
+
+SMOTE limitations:
+\begin{itemize}
+    \item May generate unrealistic samples in sparse, high-dimensional spaces
+    \item Can create synthetic samples in majority class regions, increasing overlap
+    \item Sensitive to noise and outliers in the minority class
+\end{itemize}
+
+\subsubsection{ADASYN (Adaptive Synthetic Sampling)}
+
+ADASYN extends SMOTE by adaptively generating more synthetic samples for minority class instances that are harder to learn (i.e., those surrounded by majority class samples). This focuses the oversampling effort on the most challenging decision boundary regions.
+
+\subsubsection{Borderline-SMOTE}
+
+Borderline-SMOTE identifies minority class samples near the decision boundary (borderline samples) and generates synthetic samples only for these instances. This approach concentrates on the most critical region for classification while avoiding over-generation of synthetic samples in well-separated regions.
+
+\subsection{Hybrid Resampling Methods}
+
+Hybrid methods combine oversampling and undersampling techniques to achieve both class balance and data quality improvement.
+
+\subsubsection{SMOTE-ENN (SMOTE with Edited Nearest Neighbors)}
+
+SMOTE-ENN first applies SMOTE to oversample the minority class, then uses Edited Nearest Neighbors (ENN) to remove samples whose class label differs from the majority of their $k$ nearest neighbors. This cleaning step removes noisy and overlapping samples, creating clearer class boundaries.
+
+\subsubsection{SMOTE-Tomek (SMOTE with Tomek Links)}
+
+SMOTE-Tomek combines SMOTE oversampling with Tomek links removal. A Tomek link is a pair of samples $(x_i, x_j)$ from different classes that are each other's nearest neighbors. Removing Tomek links eliminates ambiguous boundary samples and creates a clearer separation between classes.
+
+The SMOTE-Tomek process:
+\begin{enumerate}
+    \item Apply SMOTE to oversample the minority class
+    \item Identify all Tomek links in the resulting dataset
+    \item Remove samples involved in Tomek links
+\end{enumerate}
+
+Advantages of SMOTE-Tomek:
+\begin{itemize}
+    \item Balances classes while improving boundary clarity
+    \item Removes potentially mislabeled or noisy samples
+    \item Reduces overfitting risk compared to SMOTE alone
+    \item Particularly effective for high-dimensional, sparse data
+\end{itemize}
+
+\section{Classification Algorithms}
+
+\subsection{Logistic Regression}
+
+Logistic Regression is a linear classification algorithm that models the probability of a binary outcome using the logistic (sigmoid) function. Despite its name, logistic regression is a classification algorithm, not a regression algorithm.
+
+\subsubsection{Model Formulation}
+
+The logistic regression model computes the probability that an instance belongs to the positive class:
+
+\begin{equation}
+P(y = 1 \mid x) = \frac{1}{1 + e^{-z}}
+\end{equation}
+
+where $z = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \ldots + \beta_n x_n$
+
+Here, $\beta_0$ is the intercept, and $\beta_1, \ldots, \beta_n$ are the feature coefficients learned during training. The sigmoid function maps the linear combination $z$ to a probability value between 0 and 1.
+
+\subsubsection{Decision Boundary}
+
+The decision boundary is the set of points where $P(y = 1 \mid x) = 0.5$, corresponding to $z = 0$. Logistic regression creates a linear decision boundary in the feature space.
+
+\subsubsection{Advantages}
+\begin{itemize}
+    \item Computationally efficient and fast to train
+    \item Produces well-calibrated probability estimates
+    \item Interpretable coefficients indicating feature importance and direction
+    \item Performs well when classes are approximately linearly separable
+    \item Less prone to overfitting compared to complex models
+\end{itemize}
+
+\subsubsection{Limitations}
+\begin{itemize}
+    \item Assumes linear relationship between features and log-odds
+    \item Cannot capture complex non-linear patterns
+    \item May underperform when decision boundaries are highly non-linear
+\end{itemize}
+
+\subsection{Support Vector Machine (SVM)}
+
+Support Vector Machine is a powerful classification algorithm that finds the optimal hyperplane separating classes by maximizing the margin between them.
+
+\subsubsection{Linear SVM}
+
+For linearly separable data, SVM identifies the hyperplane that maximizes the distance (margin) between the closest points of each class (support vectors). The decision function is:
+
+\begin{equation}
+f(x) = \text{sign}(w \cdot x + b)
+\end{equation}
+
+where $w$ is the weight vector perpendicular to the hyperplane, and $b$ is the bias term.
+
+\subsubsection{Kernel Trick}
+
+For non-linearly separable data, the kernel trick maps the input space to a higher-dimensional feature space where classes become linearly separable. Common kernels include:
+
+\begin{itemize}
+    \item \textbf{Linear Kernel}: $K(x, x') = x \cdot x'$
+    \item \textbf{Polynomial Kernel}: $K(x, x') = (x \cdot x' + c)^d$
+    \item \textbf{Radial Basis Function (RBF) Kernel}: $K(x, x') = \exp(-\gamma \|x - x'\|^2)$
+\end{itemize}
+
+The RBF kernel is widely used due to its ability to handle non-linear relationships and its flexibility in controlling the decision boundary smoothness through the $\gamma$ parameter.
+
+\subsubsection{Advantages}
+\begin{itemize}
+    \item Effective in high-dimensional spaces
+    \item Memory efficient (only support vectors are stored)
+    \item Versatile through different kernel functions
+    \item Robust to overfitting, especially in high-dimensional spaces
+\end{itemize}
+
+\subsubsection{Limitations}
+\begin{itemize}
+    \item Computationally expensive for large datasets
+    \item Sensitive to kernel and hyperparameter selection
+    \item Probability estimates require additional calibration
+    \item Difficult to interpret compared to linear models
+\end{itemize}
+
+\subsection{Decision Tree}
+
+Decision Trees are hierarchical models that make predictions by learning a series of decision rules inferred from the training data. The model structure resembles a tree, with internal nodes representing feature tests, branches representing decision outcomes, and leaf nodes representing class labels or predictions.
+
+\subsubsection{Tree Construction}
+
+Decision trees are constructed using a recursive partitioning process:
+
+\begin{enumerate}
+    \item Select the best feature to split the data based on an impurity measure
+    \item Partition the data into subsets based on the selected feature
+    \item Recursively apply the process to each subset
+    \item Stop when a termination criterion is met (e.g., maximum depth, minimum samples per leaf, pure node)
+\end{enumerate}
+
+\subsubsection{Splitting Criteria}
+
+The quality of a split is evaluated using impurity measures:
+
+\textbf{Entropy (Information Gain)}
+
+Entropy measures the disorder or uncertainty in a dataset:
+
+\begin{equation}
+\text{Entropy}(S) = -\sum p_i \times \log_2(p_i)
+\end{equation}
+
+where $p_i$ is the proportion of samples belonging to class $i$. Information gain measures the reduction in entropy achieved by a split:
+
+\begin{equation}
+\text{Information Gain} = \text{Entropy}(\text{parent}) - \sum \frac{|S_{\text{child}}|}{|S_{\text{parent}}|} \times \text{Entropy}(S_{\text{child}})
+\end{equation}
+
+\textbf{Gini Impurity}
+
+Gini impurity measures the probability of incorrectly classifying a randomly chosen sample:
+
+\begin{equation}
+\text{Gini}(S) = 1 - \sum p_i^2
+\end{equation}
+
+Lower Gini impurity indicates a purer node. The split that results in the lowest weighted average child node impurity is selected.
+
+\subsubsection{Advantages}
+\begin{itemize}
+    \item Highly interpretable with clear decision rules
+    \item Requires minimal data preprocessing
+    \item Handles both numerical and categorical features
+    \item Captures non-linear relationships naturally
+    \item Provides feature importance rankings
+\end{itemize}
+
+\subsubsection{Limitations}
+\begin{itemize}
+    \item Prone to overfitting, especially with deep trees
+    \item Unstable---small data changes can result in different trees
+    \item Biased toward features with more levels
+    \item May create overly complex trees that don't generalize well
+\end{itemize}
+
+\subsection{Random Forest}
+
+Random Forest is an ensemble learning method that constructs multiple decision trees during training and outputs the class that is the mode of the individual tree predictions (for classification).
+
+\subsubsection{Algorithm}
+
+The Random Forest algorithm operates as follows:
+
+\begin{enumerate}
+    \item \textbf{Bootstrap Sampling}: Create $B$ bootstrap samples from the training data (sampling with replacement)
+    \item \textbf{Tree Construction}: For each bootstrap sample, grow a decision tree with the following modification:
+    \begin{itemize}
+        \item At each node, randomly select $m$ features from the total $M$ features
+        \item Choose the best split among the $m$ features (not all $M$ features)
+    \end{itemize}
+    \item \textbf{Aggregation}: Combine predictions from all trees using majority voting (classification) or averaging (regression)
+\end{enumerate}
+
+\subsubsection{Key Parameters}
+
+\begin{itemize}
+    \item \textbf{Number of trees (n\_estimators)}: More trees generally improve performance but increase computation time
+    \item \textbf{Max features ($m$)}: Typical choices are $\sqrt{M}$ for classification, $M/3$ for regression
+    \item \textbf{Max depth}: Controls tree complexity and overfitting
+    \item \textbf{Min samples split/leaf}: Minimum samples required to split or form a leaf node
+\end{itemize}
+
+\subsubsection{Feature Importance}
+
+Random Forest provides feature importance scores by measuring the average decrease in impurity contributed by each feature across all trees:
+
+\begin{equation}
+\text{Importance}(\text{feature}) = \frac{1}{B} \sum \text{Decrease in impurity from feature across all trees}
+\end{equation}
+
+\subsubsection{Advantages}
+\begin{itemize}
+    \item Reduces overfitting compared to individual decision trees
+    \item Robust to noise and outliers
+    \item Provides reliable feature importance estimates
+    \item Handles high-dimensional data well
+    \item Requires minimal hyperparameter tuning
+    \item Parallelizable for efficient computation
+\end{itemize}
+
+\subsubsection{Limitations}
+\begin{itemize}
+    \item Less interpretable than single decision trees
+    \item Can be memory-intensive for large ensembles
+    \item May not perform well on very small datasets
+    \item Potentially biased toward features with more categories
+\end{itemize}
+
+\subsection{XGBoost (eXtreme Gradient Boosting)}
+
+XGBoost is an optimized implementation of gradient boosting that has become one of the most successful machine learning algorithms for structured data. It builds an ensemble of decision trees sequentially, where each tree attempts to correct the errors of the previous trees.
+
+\subsubsection{Gradient Boosting Framework}
+
+Gradient boosting builds an additive model:
+
+\begin{equation}
+F(x) = \sum f_t(x)
+\end{equation}
+
+where each $f_t$ is a decision tree trained to minimize the loss function by fitting the negative gradient of the loss with respect to the previous model's predictions.
+
+\subsubsection{XGBoost Objective Function}
+
+XGBoost optimizes a regularized objective function:
+
+\begin{equation}
+\text{Obj} = \sum L(y_i, \hat{y}_i) + \sum \Omega(f_t)
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $L(y_i, \hat{y}_i)$ is the loss function measuring prediction error
+    \item $\Omega(f_t)$ is a regularization term penalizing model complexity
+\end{itemize}
+
+The regularization term is defined as:
+
+\begin{equation}
+\Omega(f_t) = \gamma T + \frac{\lambda}{2}\|w\|^2
+\end{equation}
+
+where $T$ is the number of leaves, $w$ are the leaf weights, $\gamma$ controls leaf penalty, and $\lambda$ controls weight penalty.
+
+\subsubsection{Key Features}
+
+\begin{enumerate}
+    \item \textbf{Regularization}: L1 (Lasso) and L2 (Ridge) regularization to prevent overfitting
+    \item \textbf{Tree Pruning}: Uses max\_depth parameter and prunes trees backward using the $\gamma$ parameter
+    \item \textbf{Handling Missing Values}: Built-in capability to learn the best direction for missing values
+    \item \textbf{Column Subsampling}: Randomly selects a subset of features for each tree, similar to Random Forest
+    \item \textbf{Row Subsampling}: Uses a fraction of training samples for each tree to reduce overfitting
+\end{enumerate}
+
+\subsubsection{Hyperparameters}
+
+Important XGBoost hyperparameters include:
+\begin{itemize}
+    \item \textbf{n\_estimators}: Number of boosting rounds (trees)
+    \item \textbf{max\_depth}: Maximum depth of each tree
+    \item \textbf{learning\_rate (eta)}: Shrinkage factor to prevent overfitting
+    \item \textbf{subsample}: Fraction of samples used for training each tree
+    \item \textbf{colsample\_bytree}: Fraction of features used for training each tree
+    \item \textbf{gamma}: Minimum loss reduction required to make a split
+    \item \textbf{lambda}: L2 regularization term
+    \item \textbf{alpha}: L1 regularization term
+\end{itemize}
+
+\subsubsection{Advantages}
+\begin{itemize}
+    \item State-of-the-art performance on many datasets
+    \item Built-in regularization reduces overfitting
+    \item Handles missing values automatically
+    \item Provides feature importance scores
+    \item Supports custom loss functions and evaluation metrics
+    \item Highly efficient and parallelizable implementation
+\end{itemize}
+
+\subsubsection{Limitations}
+\begin{itemize}
+    \item Requires careful hyperparameter tuning
+    \item Can overfit on small or noisy datasets
+    \item Less interpretable than simpler models
+    \item Sensitive to outliers in some configurations
+    \item Sequential training limits parallelization compared to Random Forest
+\end{itemize}
+
+\section{Ensemble Learning}
+
+\subsection{Ensemble Learning Principles}
+
+Ensemble learning combines multiple base models (weak learners) to create a stronger, more robust predictor. The fundamental principle is that a group of models working together can outperform any individual model by:
+
+\begin{itemize}
+    \item \textbf{Reducing variance}: Averaging predictions reduces overfitting
+    \item \textbf{Reducing bias}: Combining diverse models can capture different patterns
+    \item \textbf{Improving robustness}: Ensemble is less sensitive to noise and outliers in training data
+\end{itemize}
+
+\subsubsection{Diversity Requirement}
+
+For an ensemble to be effective, the base models should make different errors---if all models make identical predictions, the ensemble provides no benefit. Diversity can be achieved through:
+\begin{itemize}
+    \item Different algorithms (heterogeneous ensemble)
+    \item Different training subsets (bagging, bootstrap sampling)
+    \item Different feature subsets
+    \item Different hyperparameter configurations
+\end{itemize}
+
+\subsection{Voting Classifiers}
+
+Voting classifiers combine predictions from multiple models through a voting mechanism. There are two primary approaches:
+
+\subsubsection{Hard Voting}
+
+Hard voting predicts the class that receives the most votes from base models:
+
+\begin{equation}
+\hat{y} = \text{mode}\{C_1(x), C_2(x), \ldots, C_n(x)\}
+\end{equation}
+
+where $C_i(x)$ is the class prediction from model $i$. Each model contributes equally, and the majority class is selected.
+
+\subsubsection{Soft Voting}
+
+Soft voting predicts the class with the highest average probability across all models:
+
+\begin{equation}
+\hat{y} = \arg\max \sum P_i(y = c \mid x)
+\end{equation}
+
+where $P_i(y = c \mid x)$ is the probability estimate for class $c$ from model $i$. Soft voting leverages probability estimates and often outperforms hard voting because it considers prediction confidence.
+
+\subsubsection{Weighted Voting}
+
+Weighted voting assigns different importance weights to different models:
+
+\begin{equation}
+\hat{y} = \arg\max \sum w_i \times P_i(y = c \mid x)
+\end{equation}
+
+where $w_i$ is the weight assigned to model $i$, typically based on model performance (e.g., validation accuracy, F1-score). The weights sum to 1.0:
+
+\begin{equation}
+\sum w_i = 1.0
+\end{equation}
+
+Weight selection can be performed through:
+\begin{itemize}
+    \item Cross-validation performance
+    \item Grid search optimization
+    \item Inverse error weighting
+    \item Stacking meta-learner
+\end{itemize}
+
+\subsubsection{Advantages of Voting Ensembles}
+\begin{itemize}
+    \item Combines strengths of diverse algorithms
+    \item Reduces variance and improves generalization
+    \item More robust to individual model failures
+    \item Simple to implement and interpret
+\end{itemize}
+
+\subsubsection{Limitations}
+\begin{itemize}
+    \item Requires training multiple models (increased computation)
+    \item May not improve performance if base models are highly correlated
+    \item Weight selection can require extensive tuning
+\end{itemize}
+
+\subsection{Bagging vs. Boosting}
+
+\subsubsection{Bagging (Bootstrap Aggregating)}
+
+Bagging trains multiple instances of the same algorithm on different bootstrap samples (random sampling with replacement) and averages their predictions. Random Forest is a prime example of bagging applied to decision trees.
+
+Characteristics:
+\begin{itemize}
+    \item Parallel training (models are independent)
+    \item Reduces variance
+    \item Particularly effective for high-variance models (e.g., deep decision trees)
+\end{itemize}
+
+\subsubsection{Boosting}
+
+Boosting trains models sequentially, with each new model focusing on correcting errors made by previous models. Examples include AdaBoost, Gradient Boosting, and XGBoost.
+
+Characteristics:
+\begin{itemize}
+    \item Sequential training (models are dependent)
+    \item Reduces bias
+    \item Can achieve higher accuracy than bagging
+    \item More prone to overfitting if not regularized
+\end{itemize}
+
+\section{Model Evaluation Metrics}
+
+\subsection{Confusion Matrix}
+
+The confusion matrix is a fundamental tool for evaluating classification model performance. For binary classification, it is a 2$\times$2 matrix with four components:
+
+\begin{table}[h]
 \centering
-% \includegraphics[width=0.8\textwidth]{placeholder}
-\caption{Fig. 2.1 Machine Learning vs. Deep Learning}
-\end{figure}
-\section{Neural Network}
-A neural network, more properly referred to as an 'artificial' neural network (ANN), is provided
+\begin{tabular}{|l|c|c|}
+\hline
+ & \textbf{Predicted Positive} & \textbf{Predicted Negative} \\
+\hline
+\textbf{Actual Positive} & True Positive (TP) & False Negative (FN) \\
+\hline
+\textbf{Actual Negative} & False Positive (FP) & True Negative (TN) \\
+\hline
+\end{tabular}
+\end{table}
 
-by the inventor of one of the first neurocomputers, Dr. Robert Hecht-Nielsen. He defines a neural
+\begin{itemize}
+    \item \textbf{True Positive (TP)}: Correctly predicted positive instances
+    \item \textbf{True Negative (TN)}: Correctly predicted negative instances
+    \item \textbf{False Positive (FP)}: Negative instances incorrectly predicted as positive (Type I error)
+    \item \textbf{False Negative (FN)}: Positive instances incorrectly predicted as negative (Type II error)
+\end{itemize}
 
-network as: “a computing system made up of a number of simple, highly interconnected processing
+\subsection{Accuracy}
 
-elements, which process information by their dynamic state response to external inputs.” A
+Accuracy measures the proportion of correct predictions:
 
-diagram of what one node might look like as shown in the graphic below.
+\begin{equation}
+\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+\end{equation}
 
-\begin{figure}[ht]
-\centering
-% \includegraphics[width=0.8\textwidth]{placeholder}
-\caption{Fig. 2.2 Simple Neural Network}
-\end{figure}
-Neural networks are typically organized in layers. Layers are made up of a number of
+\textbf{Advantages}: Simple, intuitive, and easy to interpret
 
-interconnected 'nodes' which contain an 'activation function'. Patterns are presented to the network
+\textbf{Limitations}: Misleading for imbalanced datasets---a model predicting only the majority class can achieve high accuracy while failing to identify minority class instances
 
-via the 'input layer', which communicates to one or more 'hidden layers' where the actual
+\subsection{Precision}
 
-processing is done via a system of weighted 'connections'. The hidden layers then link to an 'output
+Precision (Positive Predictive Value) measures the proportion of positive predictions that are actually correct:
 
-layer' where the answer is output as shown in the graphic below.
+\begin{equation}
+\text{Precision} = \frac{TP}{TP + FP}
+\end{equation}
 
-\begin{figure}[ht]
-\centering
-% \includegraphics[width=0.8\textwidth]{placeholder}
-\caption{Fig. 2.3 Deep Neural Network with two hidden layers}
-\end{figure}
-A neural network is a set of connected neurons designed in layers:
+Precision answers the question: ``Of all instances predicted as positive, how many are truly positive?''
 
-a) Input Layer: Brings the initial data into the system for further processing by subsequent
+\textbf{High Precision}: Few false positives---important when false positives are costly
 
-layers of artificial neurons.
+\textbf{Use Cases}: Spam detection (users tolerate missing spam but not blocking legitimate emails), medical screening (avoiding unnecessary treatments)
 
-b) Hidden layer: A hidden layer is a layer between input layers and output layers. In the
+\subsection{Recall (Sensitivity)}
 
-hidden layer, artificial neurons take in a set of weighted inputs and give an output through
+Recall (Sensitivity, True Positive Rate) measures the proportion of actual positive instances correctly identified:
 
-an activation function.
+\begin{equation}
+\text{Recall} = \frac{TP}{TP + FN}
+\end{equation}
 
-c) Output layer: In the program, the last layer of neurons that produces given outputs.
+Recall answers the question: ``Of all actual positive instances, how many did we correctly identify?''
 
-Neural networks may accomplish tasks that take hours or even days, such speech recognition and
+\textbf{High Recall}: Few false negatives---important when missing positive instances is costly
+\textbf{Use Cases}: Disease diagnosis (missing a disease is more harmful than a false alarm), fraud detection (catching all fraudulent transactions is critical)
+\subsection{F1-Score}
+The F1-score is the harmonic mean of precision and recall, providing a single metric that balances both:
+\begin{equation}
+\text{F1-Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+\end{equation}
+The harmonic mean penalizes extreme values more than the arithmetic mean, meaning high F1-score requires both high precision and high recall.
+\textbf{Advantages}:
+\begin{itemize}
+\item Single metric balancing precision and recall
+\item Robust to class imbalance
+\item More informative than accuracy for imbalanced datasets
+\end{itemize}
+\subsubsection{F-beta Score Generalization}
+\begin{equation}
+F_\beta = (1 + \beta^2) \times \frac{\text{Precision} \times \text{Recall}}{\beta^2 \times \text{Precision} + \text{Recall}}
+\end{equation}
+\begin{itemize}
+    \item $\beta < 1$
+$\beta < 1$: Emphasizes precision
+    \item $\beta = 1$
+$\beta = 1$: Balanced (F1-score)
+    \item $\beta > 1$
+$\beta > 1$: Emphasizes recall
+\end{itemize}
 
-picture identification, in a matter of minutes. A popular illustration of a neural network is the
+\subsection{ROC Curve and AUROC}
+\subsubsection{ROC (Receiver Operating Characteristic) Curve}
+The ROC curve plots the True Positive Rate (Recall) against the False Positive Rate across all classification thresholds:
+\begin{itemize}
+    \item \textbf{True Positive Rate (TPR)}: $\frac{TP}{TP + FN} = \text{Recall}$
+    \item \textbf{False Positive Rate (FPR)}: $\frac{FP}{FP + TN}$
+\end{itemize}
 
-search engine Google [11].
+Each point on the ROC curve represents a different classification threshold. A perfect classifier has a point at (0, 1)---zero false positives and 100% true positives.
+\subsubsection{AUROC (Area Under ROC Curve)}
+AUROC measures the area under the ROC curve, providing a single scalar value representing overall model performance across all thresholds:
+\begin{itemize}
+\item AUROC = 1.0: Perfect classifier
+\item AUROC = 0.5: Random classifier (diagonal line)
+\item AUROC < 0.5: Worse than random (predictions are inverted)
+\end{itemize}
+\textbf{Interpretation}: AUROC represents the probability that the model ranks a randomly chosen positive instance higher than a randomly chosen negative instance.
+\textbf{Advantages}:
+\begin{itemize}
+\item Threshold-independent evaluation
+\item Robust to class imbalance
+\item Comprehensive performance assessment across all thresholds
+\end{itemize}
+\textbf{Limitations}:
+\begin{itemize}
+\item May be overly optimistic for highly imbalanced datasets
+\item Does not reflect performance at a specific operating threshold
+\end{itemize}
+\subsection{Precision-Recall Curve and AUPRC}
+\subsubsection{Precision-Recall (PR) Curve}
+The PR curve plots Precision against Recall across different classification thresholds. Unlike the ROC curve, which uses False Positive Rate, the PR curve directly shows the trade-off between precision and recall.
+\subsubsection{AUPRC (Area Under Precision-Recall Curve)}
+AUPRC measures the area under the PR curve. It is particularly informative for imbalanced datasets where the positive class is rare.
+\subsubsection{Why AUPRC for Imbalanced Data?}
+For highly imbalanced datasets, AUROC can be misleadingly high because it gives equal weight to both classes. AUPRC focuses specifically on the positive (minority) class performance:
+\begin{itemize}
+\item High AUPRC: Model maintains high precision and recall for the positive class
+\item Low AUPRC: Model struggles to correctly identify the positive class
+\end{itemize}
+\subsubsection{Comparison: AUROC vs. AUPRC}
+\begin{itemize}
+\item AUROC: Balanced view, less sensitive to class imbalance
+\item AUPRC: Focuses on positive class, more sensitive to imbalance
+\item For imbalanced datasets, AUPRC is often more informative than AUROC
+\end{itemize}
+\section{Model Interpretability and Explainability}
+\subsection{Importance of Interpretability}
+Model interpretability refers to the degree to which a human can understand the cause of a model's predictions. Interpretability is crucial for:
+\begin{itemize}
+\item \textbf{Trust and adoption}: Clinicians and domain experts require understanding before deploying models
+\item \textbf{Debugging and validation}: Identifying when models rely on spurious correlations
+\item \textbf{Regulatory compliance}: Many domains require explainable predictions
+\item \textbf{Scientific insight}: Understanding which features drive predictions can reveal new knowledge
+\end{itemize}
+\subsubsection{Intrinsic vs. Post-hoc Interpretability}
+\begin{itemize}
+\item \textbf{Intrinsic interpretability}: Models that are inherently interpretable (e.g., linear regression, decision trees)
+\item \textbf{Post-hoc interpretability}: Explanation methods applied after model training (e.g., SHAP, LIME, permutation importance)
+\end{itemize}
+\subsection{Permutation Feature Importance}
+Permutation importance measures the increase in model error when a feature's values are randomly shuffled, breaking the relationship between the feature and the target.
+\subsubsection{Algorithm}
+\begin{enumerate}
+\item Train model on original data and compute baseline performance
+\item For each feature:
+\begin{itemize}
+\item Randomly permute the feature's values
+\item Compute model performance on permuted data
+\item Importance = Baseline performance - Permuted performance
+\end{itemize}
+\item Rank features by importance score
+\end{enumerate}
+\subsubsection{Characteristics}
+\begin{itemize}
+\item Model-agnostic (works with any model)
+\item Considers feature's contribution in context of other features
+\item Captures both direct and indirect effects through feature interactions
+\end{itemize}
+\subsubsection{Advantages}
+\begin{itemize}
+\item Simple and intuitive
+\item Does not require model retraining
+\item Provides global feature importance
+\end{itemize}
+\subsubsection{Limitations}
+\begin{itemize}
+\item Can be computationally expensive for large datasets
+\item May be unreliable when features are highly correlated
+\item Does not explain individual predictions
+\end{itemize}
+\subsection{SHAP (SHapley Additive exPlanations)}
+SHAP is a unified framework for interpreting predictions based on cooperative game theory. It assigns each feature an importance value (SHAP value) for a particular prediction, representing the feature's contribution to the difference between the actual prediction and the average prediction.
+\subsubsection{Shapley Values from Game Theory}
+In cooperative game theory, the Shapley value fairly distributes the total payout among players based on their contribution. SHAP adapts this concept to machine learning:
+\begin{itemize}
+\item \textbf{Players}: Features
+\item \textbf{Payout}: Model prediction
+\item \textbf{Contribution}: How much each feature contributes to the prediction
+\end{itemize}
+\subsubsection{SHAP Value Definition}
+The SHAP value $\phi_j$ for feature $j$ is computed as:
 
-\section{Convolutional Neural Network}
-Convolutional Neural Networks are very similar to ordinary Neural Networks from the previous
+\begin{equation}
+\phi_j = \sum_{S \subseteq F \setminus {j}} \frac{|S|!(M - |S| - 1)!}{M!} \times [f(S \cup {j}) - f(S)]
+\end{equation}
+where:
+\begin{itemize}
+    \item SS
+S is a subset of features (coalition)
+    \item MM
+M is the total number of features
+    \item f(S)f(S)
+f(S) is the model prediction using only features in SS
+S    \item The sum is over all possible subsets SS
+S not containing feature jj
+j\end{itemize}
 
-section: they are made up of neurons that have learnable weights and biases. Each neuron receives
+\subsubsection{SHAP Properties}
+SHAP values satisfy three desirable properties:
+\begin{enumerate}
+\item \textbf{Local Accuracy}: The sum of SHAP values equals the difference between the prediction and the expected value:
+\begin{equation}
+f(x) = \phi_0 + \sum \phi_j
+\end{equation}
+\item \textbf{Consistency}: If a model changes so that a feature's contribution increases, its SHAP value should not decrease
 
-some inputs, performs a dot product and optionally follows it with a non-linearity. The whole
+\item \textbf{Additivity}: For ensemble models, SHAP values can be computed for individual models and aggregated
+\end{enumerate}
+\subsubsection{SHAP Explainer Types}
+Different SHAP explainers are optimized for specific model types:
+\textbf{TreeExplainer}
+Efficient exact computation for tree-based models (Decision Trees, Random Forest, XGBoost, LightGBM). Uses tree structure to compute SHAP values in polynomial time rather than exponential time.
+\textbf{LinearExplainer}
+Analytical computation for linear models (Linear Regression, Logistic Regression). SHAP values equal the feature coefficients multiplied by the feature values (after centering):
+\begin{equation}
+\phi_j = \beta_j \times (x_j - E[x_j])
+\end{equation}
+\textbf{KernelExplainer}
+Model-agnostic explainer that estimates SHAP values by sampling feature coalitions. Computationally expensive but works with any model.
+\subsection{Global vs. Local Explanations}
+\subsubsection{Global Explanations}
+Global explanations describe overall model behavior across the entire dataset:
+\begin{itemize}
+    \item \textbf{Mean Absolute SHAP Values}: Average $|\phi_j|$ across all instances indicates overall feature importance
+    \item \textbf{SHAP Summary Plots}: Visualize feature importance and effect direction
+    \item \textbf{Partial Dependence Plots}: Show the marginal effect of features on predictions
+\end{itemize}
 
-network still expresses a single differentiable score function: from the raw image pixels on one
+\subsubsection{Local Explanations}
+Local explanations describe individual predictions:
+\begin{itemize}
+\item \textbf{Instance-level SHAP Values}: Show which features contributed to a specific prediction
+\item \textbf{Waterfall Plots}: Visualize how features incrementally shift prediction from base value
+\item \textbf{Force Plots}: Interactive visualization of feature contributions for individual predictions
+\end{itemize}
+\subsection{SHAP Ensemble Aggregation}
+For ensemble models composed of multiple base learners, SHAP values can be aggregated to provide ensemble-level explanations. If an ensemble uses weighted voting with weights $w_i$ for models $i = 1, \ldots, n$, the ensemble SHAP value for feature $j$ is:
 
-end to class scores at the other. And they still have a loss function (e.g., SVM/Softmax) on the last
+\begin{equation}
+\phi_{j,\text{ensemble}} = \frac{\sum w_i \times \phi_{j,i}}{\sum w_i}
+\end{equation}
+This weighted aggregation ensures that the ensemble SHAP values reflect the contribution weights of the constituent models, providing interpretability consistent with the ensemble prediction mechanism.
+\section{Hyperparameter Optimization}
+\subsection{Hyperparameters vs. Parameters}
+\begin{itemize}
+\item \textbf{Parameters}: Learned from data during training (e.g., neural network weights, tree split points)
+\item \textbf{Hyperparameters}: Set before training and control the learning process (e.g., learning rate, tree depth, regularization strength)
+\end{itemize}
+\subsection{Grid Search}
+Grid search performs exhaustive search over a predefined hyperparameter grid. For each combination of hyperparameters:
+\begin{enumerate}
+\item Train the model using cross-validation
+\item Compute average validation performance
+\item Select the combination with the best performance
+\end{enumerate}
+\subsubsection{Advantages}
+\begin{itemize}
+\item Guaranteed to find the best combination in the grid
+\item Parallelizable across different hyperparameter combinations
+\item Reproducible and systematic
+\end{itemize}
+\subsubsection{Limitations}
+\begin{itemize}
+\item Computationally expensive (exponential growth with number of hyperparameters)
+\item May miss optimal values between grid points
+\item Inefficient when some hyperparameters have little effect
+\end{itemize}
+\subsection{Random Search}
+Random search samples hyperparameter combinations randomly from defined distributions. Often more efficient than grid search, especially when some hyperparameters are more important than others.
+\subsection{Cross-Validation for Hyperparameter Selection}
+Cross-validation is essential for unbiased hyperparameter selection. The process:
+\begin{enumerate}
+\item Split data into training and held-out test sets
+\item Use cross-validation on training set to select hyperparameters
+\item Train final model on full training set with selected hyperparameters
+\item Evaluate on held-out test set
+\end{enumerate}
+This ensures hyperparameters are not selected based on test set performance, which would lead to overfitting and overly optimistic performance estimates.
+\section{Data Leakage Prevention}
+\subsection{Definition of Data Leakage}
+Data leakage occurs when information from outside the training dataset is used to create the model, leading to overly optimistic performance estimates that fail to generalize to real-world deployment.
+\subsection{Common Sources of Leakage}
+\subsubsection{Leakage from Preprocessing}
+Applying preprocessing steps (normalization, feature selection, resampling) to the entire dataset before splitting leads to leakage because:
+\begin{itemize}
+\item Training set ``sees'' information from the test set
+\item Feature selection may select features specifically predictive of test set
+\item Normalization uses test set statistics
+\end{itemize}
+\textbf{Correct Approach}: Fit preprocessing on training set only, then apply to test set
+\subsubsection{Leakage from Resampling}
+Applying class imbalance resampling (SMOTE, oversampling) to both training and test sets causes:
+\begin{itemize}
+\item Synthetic samples in test set are generated using training set information
+\item Test set no longer represents real-world distribution
+\item Performance estimates are inflated
+\end{itemize}
+\textbf{Correct Approach}: Apply resampling only to training set after train-test split
+\subsection{Train-Test Split Protocol}
+The correct protocol to prevent leakage:
+\begin{enumerate}
+\item \textbf{Split Data}: Divide into train and test sets (stratified to preserve class distribution)
+\item \textbf{Fit Preprocessing}: Compute preprocessing parameters (e.g., normalization, feature selection) using only training data
+\item \textbf{Apply Preprocessing}: Apply fitted preprocessing to both train and test sets
+\item \textbf{Apply Resampling}: Apply class imbalance handling only to training set
+\item \textbf{Train Model}: Train on preprocessed, resampled training set
+\item \textbf{Evaluate}: Evaluate on preprocessed (but not resampled) test set
+\end{enumerate}
+This protocol ensures the test set remains completely unseen and representative of real-world deployment conditions.
+\section{Binary Classification Formulation}
+\subsection{Problem Definition}
+Binary classification is the task of assigning instances to one of two mutually exclusive classes. Formally:
+\begin{itemize}
+    \item \textbf{Input}: Feature vector $x \in \mathbb{R}^n$
+    \item \textbf{Output}: Class label $y \in \{0, 1\}$
+    \item \textbf{Objective}: Learn function $f: \mathbb{R}^n \rightarrow \{0, 1\}$ that minimizes prediction error
+\end{itemize}
 
-(fully-connected) layer and all the tips/tricks we developed for learning regular Neural Networks
+\subsection{Decision Threshold}
+Most classifiers output a continuous score or probability $P(y = 1 \mid x)$. The predicted class is determined by comparing to a decision threshold $\tau$:
 
-still apply.
-
-A ConvNet arranges its neurons in three dimensions (width, height, depth), as visualized in one of
-
-the layers. Every layer of a ConvNet transforms the 3D input volume to a 3D output volume of
-
-neuron activations. In this example, the red input layer holds the image, so its width and height
-
-would be the dimensions of the image, and the depth would be 3 (Red, Green, Blue channels).
-
-A simple ConvNet is a sequence of layers, and every layer of a ConvNet transforms one volume
-
-of activations to another through a differentiable function. Here three main types of layers are used
-
-to build ConvNet architectures: Convolutional Layer, Pooling Layer, and Fully-Connected Layer
-
-(exactly as seen in regular Neural Networks).
-
-\begin{figure}[ht]
-\centering
-% \includegraphics[width=0.8\textwidth]{placeholder}
-\caption{Fig. 2.4 Convolutional Neural Network}
-\end{figure}
-CNNs are used in autonomous number plate reading, photo recognition, and self-driving car
-
-software. Convolutional neural networks have gained a lot of popularity because of their
-
-adaptability to changes in data size, rotation, distortion, and other factors [12].
-
-\subsection{Convolutional Layer}
-The Conv layer is the core building block of a Convolutional Network that does most of the
-
-computational heavy lifting. Convolution is the first layer to extract features from an input image.
-
-Convolution preserves the relationship between pixels by learning image features using small
-
-squares of input data. It is a mathematical operation that takes two inputs such as image matrix
-
-and a filter or kernel.
-
-\begin{figure}[ht]
-\centering
-% \includegraphics[width=0.8\textwidth]{placeholder}
-\caption{Fig. 2.5 Convolution operation on an MxNx3 image matrix with a 3x3x3 Kernel}
-\end{figure}
-\subsection{Activation Functions}
-•   Step function: A step function is defined as
-
-\begin{figure}[ht]
-\centering
-% \includegraphics[width=0.8\textwidth]{placeholder}
-\caption{Fig. 2.6 Step function}
-\end{figure}
-Where the output is 1 if the value of x is greater than equal to zero and 0 if the value of x is less
-
-than zero. As one can see a step function is non-differentiable at zero. Since the step function is
-
-non-differentiable at zero hence it is not able to make progress with the gradient descent approach
-
-and fails in the task of updating the weights.
-
-To overcome, this problem sigmoid functions were introduced instead of the step function.
-
-•   Non-Linearity (ReLU): ReLU stands for the Rectified Linear Unit. This is the equation
-
-for ReLU:
-
-$\text{ReLU}(y) = \max(0, x)$                                            (2.1)
-
-
-\[
-\text{ReLU}(y) = \begin{cases}
-0 & \text{if } x < 0 \\
-1 & \text{if } x \ge 0
+\begin{equation}
+\hat{y} = \begin{cases}
+1 & \text{if } P(y = 1 \mid x) \geq \tau \\
+0 & \text{otherwise}
 \end{cases}
-\] % (2.2)
-
-
-The ReLU equation tells us this: If the input z is less than 0, set input equal to 0 and if the input is
-
-greater than 0, set input equal to the input.
-
-\begin{figure}[ht]
-\centering
-% \includegraphics[width=0.8\textwidth]{placeholder}
-\caption{Fig. 2.7 ReLU activation function}
-\end{figure}
-•   Softmax: Softmax is a very interesting activation function because it not only maps our
-
-output to a [0,1] range but also maps each output in such a way that the total sum is 1. The
-
-output of Softmax is, therefore, a probability distribution. The softmax function is often
-
-used in the final layer of a neural network-based classifier. Such networks are commonly
-
-trained under a log loss (or cross-entropy) regime, giving a non-linear variant of
-
-multinomial logistic regression.
-
-\subsection{Batch Normalization}
-Batch normalization is a technique for training very deep neural networks that standardizes the
-
-inputs to a layer for each mini-batch. This has the effect of stabilizing the learning process and
-
-dramatically reducing the number of training epochs required to train deep networks. During
-
-training time, a batch normalization layer does the following:
-
-1) Calculate the mean and variance of the layer's input
-
-\[
-\text{Batch mean:}\quad \mu_{B}=\frac{1}{m}\sum_{i=1}^{m} x_{i} \quad\text{(2.3)}
-\]
-\[
-\text{Batch variance:}\quad \sigma_{B}^{2}=\frac{1}{m}\sum_{i=1}^{m}\left(x_{i}-\mu_{B}\right)^{2} \quad\text{(2.4)}
-\]
-% --- Normalization step ---
-\[
-\hat{x}_{i}=\frac{x_{i}-\mu_{B}}{\sqrt{\sigma_{B}^{2}+\epsilon}} \quad\text{(2.5)}
-\]
-% --- Scale and shift ---
-\[
-y_{i}=\gamma\,\hat{x}_{i}+\beta \quad\text{(2.6)}
-\]
-
-
-\subsection{Pooling Layer}
-It is common to periodically insert a Pooling layer in-between successive Conv layer in a ConvNet
-
-architecture. Its function is to progressively reduce the spatial size of the representation to reduce
-
-the number of parameters and computation in the network, and hence to also control overfitting.
-
-The Pooling Layer operates independently on every depth slice of the input and resizes it spatially,
-
-using the MAX operation. The most common form is a pooling layer with filters of size 2x2 applied
-
-with a stride of 2 down samples every depth slice in the input by 2 along both width and height,
-
-discarding 75% of the activations. Every MAX operation would, in this case, be taking a max over
-
-4 numbers (little 2x2 region in some depth slice). The depth dimension remains unchanged.
-
-•   Max-Pooling: Max pooling is used to reduce the image size by mapping the size of a given
-
-window into a single result by taking the maximum value of the elements in the window.
-
-\begin{figure}[ht]
-\centering
-% \includegraphics[width=0.8\textwidth]{placeholder}
-\caption{Fig. 2.8 Max-Pooling}
-\end{figure}
-•   Average-Pooling: It’s the same as max-pooling except that it averages the windows
-
-instead of picking the maximum value.
-
-\begin{figure}[ht]
-\centering
-% \includegraphics[width=0.8\textwidth]{placeholder}
-\caption{Fig. 2.9 Average-Pooling}
-\end{figure}
-\subsection{Dropout}
-Dropout is a technique used to prevent a model from overfitting. Dropout works by randomly
-
-setting the outgoing edges of hidden units. A fully connected layer occupies most of the
-
-parameters, and hence, neurons develop co-dependency amongst each other during training which
-
-curbs the individual power of each neuron leading to over-fitting of training data.
-
-\subsection{Flatten Layer}
-Flatten is the function that converts the pooled feature map to a single column that is passed to the
-
-fully connected layer. Dense adds the fully connected layer to the neural network. Once the pooled
-
-featured map is obtained, the next step is to flatten it. Flattening involves transforming the entire
-
-pooled feature map matrix into a single column which is then fed to the neural network for
-
-processing.
-
-\subsection{Fully-Connected layer}
-Neurons in a fully connected layer have full connections to all activations in the previous layer, as
-
-seen in regular Neural Networks. Their activations can hence be computed with a matrix
-
-multiplication followed by a bias offset. Matrix is flattened into the vector and fed it into a fully
-
-connected layer like a neural network.
-
-The fully connected (FC) layer in the CNN represents the feature vector for the input. This feature
-
-vector/tensor/layer holds information that is vital to the input. When the network gets trained, this
-
-feature vector is then further used for classification, regression, or input into other networks like
-
-RNN for translating into other types of output, etc. It is also being used as an encoded vector.
-
-During training, this feature vector is being used to determine the loss, and help the network to get
-
-train.
-
-The convolution layers before the FC layer(s) hold information regarding local features in the input
-
-image such as edges, blobs, shapes, etc. Each conv layer holds several filters that represent one of
-
-the local features. The FC layer holds composite and aggregated information from all the conv
-
-layers that matters the most.
-
-\begin{figure}[ht]
-\centering
-% \includegraphics[width=0.8\textwidth]{placeholder}
-\caption{Fig. 2.10 Flatten layer and Fully Connected layer}
-\end{figure}
-\section{VGG16}
-ConvNets are a kind of ANN. A network of CNN is composed of many hidden layers, an output
-
-layer, and an input layer. CNN like the VGG16 model, are considered to be among the top
-
-computer vision models (CVM) currently in use. The model’s creators evaluated the networks and
-
-employed a tiny (3 x 3) convolution filter architecture to increase the depth, demonstrating a
-
-significant advancement over the prior state-of-the- art configuration [13].
-
-\begin{figure}[ht]
-\centering
-% \includegraphics[width=0.8\textwidth]{placeholder}
-\caption{Fig. 2.11 VGG16 network architecture}
-\end{figure}
-\subsection{VGG16 Architecture}
-•   Input: The VGGNet model takes in an image of size 224×224. To ensure consistency
-
-during the ImageNet competition, it’s cut 224×224 section from the middle of each image
-
-as the input.
-
-•   Convolutional layers: VGG makes use of 3×3 filters in its convolutional layers, which is
-
-the smallest possible size. Furthermore, the input undergoes 1×1 convolution filter.
-
-•   ReLU activation: One of the most significant advancements in reducing training time for
-
-AlexNet was the implementation of the Rectified Linear Unit Activation Function (ReLU).
-
-This innovative component behaves as a linear function, producing a zero value for
-
-negative inputs and an identical output for positive inputs. To preserve the spatial
-
-resolution during convolution, VGG employs a constant stride of 1 pixel.
-
-•   Hidden Layers: All of the hidden layers in VGG network utilize ReLU, as opposed to the
-
-implementation of Local Response Normalization in AlexNet. While the latter has minimal
-
-effect on overall accuracy, it significantly increases training time and memory
-
-consumption.
-
-•   Pooling layers: By including a pooling layer after a set of convolutional layers, the feature
-
-maps generated during each stage of convolution undergo a reduction in the number of
-
-parameters and dimensionality. This is crucial, especially considering the rapid progression
-
-from 64 to 128, then to 256, and eventually to 512 filters in the concluding layers.
-
-Therefore, utilizing pooling is vital for optimizing the performance of the model.
-
-•   Fully connected layers: VGGNet consists of three interconnected layers, each with a
-
-distinct purpose. The first and second layers boast an impressive 4096 channels, while the
-
-third layer contains exactly 1000 channels, one for every class.
-
-\begin{figure}[ht]
-\centering
-% \includegraphics[width=0.8\textwidth]{placeholder}
-\caption{Fig. 2.12 VGG16 architecture Map}
-\end{figure}
-\subsection{Object Localization in Image}
-We must replace the class score with the bounding box location coordinates during localization.
-
-A bounding box’s location may be expressed as a 4-dimensional vector with the height, width, and
-
-center values corresponding to x and y. Both class-specific bounding boxes (which produce a 4-
-
-thousand-parameter vector) and shared bounding boxes (which produce a 4-parameter vector) are
-
-examples of the two forms of localization architecture. The article tested both strategies using the
-
-VGG16 (D) architecture. Additionally, in this case, we must switch from classification loss
-
-functions to regression loss functions, such as mean square error (MSE), which punish the
-
-difference between the predicted and actual losses.
-
-\subsection{Results}
-VGG16 performed among the top designs in the 2014 ILSVRC competition. It was only surpassed
-
-by GoogLeNet, which had a classification error of 6.66 %, finishing in the second spot, it boasted
-
-a remarkable 7.32 % top-5 classification error rate. It was also the task’s victor, achieving a
-
-localization error of 25.32 %.
-
-\subsection{Limitation}
-•   The original VGG model requires two to three weeks of training on an Nvidia Titan GPU.
-
-•   VGG16 prepared picture. The size of net weights is 528 MB. It is therefore inefficient
-
-because it uses a large quantity of storage space and bandwidth.
-
-•   An explosion of gradient problems arises with 138 million parameters.
-
-\section{ResNet50}
-Convolutional neural networks (CNNs) of the ResNet50 variety have completely changed the way
-
-we approach deep learning. Kaiming He et al. initially presented it at Microsoft Research Asia in
-
-2015. ResNet, an acronym for residual network, describes the remaining building components that
-
-comprise the network’s design. Deep residual learning is the foundation of ResNet50, which
-
-enables the training of extremely deep networks with hundreds of layers. A startling finding in
-
-deep learning research led to the creation of the ResNet architecture: a neural network’s
-
-performance does not necessarily improve with the addition of more layers. This was surprising
-
-because a network should be able to learn more information in addition to what the prior network
-
-knew when a new layer is added. The ResNet group, under the direction of Kaiming He, created a
-
-unique design using skip connections to solve this problem. The network was able to learn more
-
-accurate representations of the input data thanks to these connections, which allowed knowledge
-
-from previous layers to be preserved. They were able to train networks with up to 152 layers using
-
-the ResNet design. With a 3.57 % mistake rate on the ImageNet dataset and victories in other
-
-contests, such as the ILSVRC and COCO object detection tasks, ResNet’s results were
-
-revolutionary. This illustrated the ResNet architecture’s strength and promise for use in deep
-
-learning studies and applications [14].
-
-\subsection{ResNet50 Architecture}
-ResNet50 is made up of 50 layers split up into 5 blocks, each of which has a collection of residual
-
-blocks. The network may learn more accurate representations of the input data by using the residual
-
-\begin{figure}[ht]
-\centering
-% \includegraphics[width=0.8\textwidth]{placeholder}
-\caption{Fig. 2.13 ResNet50 Architecture}
-\end{figure}
-blocks, which enable the retention of information from previous levels [14]. The primary ResNET
-
-components are as follows.
-
-•   Convolutional Layers: Convolution on the input picture is carried out by the network’s
-
-first layer, the convolutional layer. A max-pooling layer that down samples the
-
-convolutional layer’s output comes next. Following the max-pooling layer, a number of
-
-residual blocks are applied to the output.
-
-•   Residual Blocks: The two convolutional layers that comprise a residual block are followed
-
-by a batch normalization layer and a rectified linear unit activation function. Next, the
-
-output of the second convolutional layer is mixed with the input of the residual block,
-
-which is then exposed to an additional ReLU activation function. The output of the residual
-
-block is then passed on to the next block.
-
-•   Fully Connected Layer: The fully connected layer, the final layer in the net- work, maps
-
-the output of the final residual block to the output classes. In the completely connected
-
-layer, the number of neurons and the number of output classes are equal.
-
-\subsection{Concept of Skip Connection}
-One important component of ResNet50 is skip connections, sometimes referred to as identity
-
-connections. They make it possible to keep data from previous layers, which aids in the network’s
-
-ability to learn more accurate representations of the input. By combining the output of an earlier
-
-layer with the output of a later layer, skip connections are created.
-
-\begin{figure}[ht]
-\centering
-% \includegraphics[width=0.8\textwidth]{placeholder}
-\caption{Fig. 2.14 Skip Connection}
-\end{figure}
-\subsection{Advantages of ResNet50 Over Other Networks}
-ResNet50 has several advantages over other networks. One of its main advantages is its ability to
-
-train extraordinarily intricate networks with hundreds of layers. It is possible to retain data from
-
-earlier levels by using skip connections and remaining blocks. Another advantage of the model is
-
-ResNet50’s ability to generate state-of-the-art results in a range of image-related tasks, such as
-
-object recognition, image classification, and picture segmentation.
-
-\section{DenseNetv3}
-DenseNet V3 is a convolutional neural network architecture that is based on the idea of densely
-
-connected layers. Each layer in a DenseNet V3 receives input from all the previous layers, which
-
-allows for better feature reuse and information flow. DenseNet V3 consists of several dense blocks,
-
-each containing a fixed number of convolutional layers, followed by transition layers that reduce
-
-the spatial dimensions and the number of feature maps [15]. DenseNet V3 is an improved version
-
-of DenseNet. DenseNet V3 uses a modified version of DenseNetv3, which is a 121-layer DenseNet
-
-with four dense blocks and three transition layers. DenseNet V3 also incorporates some techniques
-
-from YOLO- V3, a state-of-the-art object detection model, to enhance its performance on multi-
-
-scale remote sensing target detection. Some of these techniques include:
-
-•   Using a larger input size of 608 x 608 pixels, instead of the original 224 x 224 pixels, to
-
-capture more details of the targets.
-
-•   Adding a fourth detection scale at the end of the network, which outputs bounding boxes
-
-at a finer resolution of 76 x 76, instead of the original 19 x 19.
-
-•   Replacing the 1 x 1 convolution layer in the transition layer with a DenseNet layer, which
-
-increases the number of feature maps and the diversity of features.
-
-•   Applying a leaky ReLU activation function with a negative slope of 0.1, instead of a regular
-
-ReLU, to avoid gradient vanishing and improve the non-linearity of the network.
-
-\subsection{DenseNetv3 Architecture}
-In a DenseNet architecture, each layer is connected to every other layer, hence the name Densely
-
-Connected Convolutional Network. For L layers, there are L(L+1)/2 direct connections. For each
-
-layer, the feature maps of all the preceding layers are used as inputs, and its own feature maps are
-
-used as input for each subsequent layer.
-
-This is really it, as simple as this may sound, DenseNets essentially connect every layer to every
-
-other layer. This is the main idea that is extremely powerful. The input of a layer inside DenseNet
-
-is the concatenation of feature maps from previous layers.
-
-\begin{figure}[ht]
-\centering
-% \includegraphics[width=0.8\textwidth]{placeholder}
-\caption{Fig. 2.15 DenseNetv3 Architecture}
-\end{figure}
-\subsection{Advantages of DenseNetv3}
-Here are the advantages of DenseNetv3:
-
-•   Improved Gradient Flow: Alleviates the vanishing gradient problem.
-
-•   Efficient Parameter Use: Requires fewer parameters, enhancing memory efficiency.
-
-•   Feature Reuse: Allows richer feature representation by connecting all layers.
-
-•   Strong Performance: Achieves high accuracy on benchmark datasets.
-
-•   Reduced Overfitting: Minimizes overfitting risk, especially with small datasets.
-
-•   Versatility: Adaptable for various tasks, including segmentation and detection.
-
-•   Modular Design: Facilitates easy modification of network depth.
-
-•   Context Awareness: Captures multi-scale information for better object recognition.
-
-•   Faster Inference: Generally faster during inference compared to similar architectures.
-
-\subsection{Disadvantages of DenseNetv3}
-Here are the disadvantages of DenseNetv3:
-
-•   Increased Computational Complexity: Dense connections result in higher memory and
-
-processing power requirements.
-
-•   Longer Training Times: More complex architecture leads to extended training durations
-
-compared to simpler models.
-
-•   Difficulties in Implementation: The unique connectivity patterns can complicate
-
-implementation and tuning.
-
-•   Sensitivity to Hyperparameters: Requires careful adjustment of hyperparameters, which
-
-may necessitate extensive experimentation.
-
-•   High Memory Consumption: Storing multiple feature maps from all layers can lead to
-
-excessive memory usage during training.
-
-•   Stage Bottlenecks: Potential bottlenecks at certain stages due to processing large numbers
-
-of features, affecting efficiency.
-
-•   Limited Interpretability: The model's decisions may be difficult to interpret, making it
-
-hard to understand feature importance.
-
-•   Complexity in Transfer Learning: May complicate fine-tuning when adapting the model
-
-for new tasks or datasets.
-
-\section{MobileNetv3}
-MobileNetv3 is an advanced deep learning architecture designed specifically for mobile and edge
-
-devices. It builds upon the successful foundations of its predecessors (MobileNet V1 and V2),
-
-introducing optimizations that improve performance and efficiency while maintaining low latency
-
-and high accuracy [16]. Leveraging techniques such as neural architecture search (NAS),
-
-lightweight operations, and improved activation functions, MobileNetv3 is well-suited for real
-
-time applications like image classification, object detection, and semantic segmentation on
-
-resource-constrained devices.
-
-\subsection{MobileNetv3 Architecture}
-MobileNetv3 incorporates several key design choices and features, including:
-
-•   Depthwise Separable Convolutions: MobileNetv3 continues to use depth wise separable
-
-convolutions, which split the convolution operation into two smaller operations: a depth
-
-wise convolution (applying a single filter to each input channel) followed by a pointwise
-
-convolution (1x1 convolution to combine the outputs).
-
-•   Neural Architecture Search (NAS): The architecture of MobileNetv3 was optimized
-
-using NAS, leading to an intelligent design that balances performance and computational
-
-efficiency.
-
-•   Inverted Residual Blocks: Similar to MobileNet V2, MobileNetv3 employs inverted
-
-residual blocks, which consist of a lightweight linear bottleneck structure that enhances
-
-feature extraction.
-
-•   Activation Functions: MobileNetv3 introduces the Swish activation function, which
-
-provides better performance compared to ReLU. Additionally, it utilizes Hard-Swish for
-
-faster computation while retaining benefits of Swish.
-
-•   Squeeze-and-Excitation Blocks: These blocks help to recalibrate channel-wise feature
-
-responses, improving the model's representational power.
-
-•   Multi-Branch Architecture: MobileNetv3 employs a multi-branch design in its
-
-architecture, allowing it to capture more diverse features while keeping the overall model
-
-lightweight.
-
-•   Version Variants: MobileNetv3 comes in two variants:
-
-o MobileNetv3-Large: Optimized for higher accuracy but requires more
-
-computational resources.
-
-o MobileNetv3-Small: A more lightweight version, optimized for faster
-
-performance and efficiency.
-
-\subsection{Advantages of MobileNetv3}
-•   High Efficiency: MobileNetv3 achieves a strong balance between accuracy and
-
-computational efficiency, making it ideal for mobile devices.
-
-•   Reduced Model Size: The architecture is designed to minimize the number of parameters,
-
-facilitating faster downloads and lower memory usage.
-
-•   Real-Time Performance: Optimized for lower latency, enabling real-time processing for
-
-applications like image classification and object detection on edge devices.
-
-•   Versatile Applications: Suitable for various tasks, including image recognition, object
-
-detection, and segmentation, due to its efficient design.
-
-•   Flexible Design: The ability to choose between MobileNetv3-Large and MobileNetv3-
-
-Small allows developers to tailor the model based on specific application requirements.
-
-\subsection{Disadvantages of MobileNetv3}
-•   Limited Performance on Complex Tasks: While efficient, MobileNetv3 might not
-
-perform as well as larger architectures (e.g., ResNet, DenseNet) in handling highly
-
-complex tasks that require deeper networks.
-
-•   Sensitivity to Data Quality: The model's performance may degrade significantly with
-
-poor quality or imbalanced datasets, necessitating careful data handling.
-
-•   Interpretability Issues: Like many deep learning models, MobileNetv3 can be seen as a
-
-"black box," making it difficult to interpret the reasoning behind its predictions.
-
-•   Hardware Limitations: Although designed for mobile devices, performance may vary
-
-depending on specific hardware capabilities, impacting the feasibility of some applications.
-
-\section{Summary}
-Finally, an examination of VGG16, ResNet50, MobileNetV3, and DenseNetv3 demonstrates the
-
-distinctive qualities of each network architecture and the advances they enable in computer vision.
-
-Our selection of models for certain tasks is influenced by our understanding of deep layer
-
-topologies, skip connections, inception modules, depth-wise separable convolutions, and dense
-
-connectivity. Our empirical inquiry is guided by this theoretical framework, which also helps with
-
-model selection and result interpretation. Recognizing the advantages of each architecture places
-
-our study in the context of deep learning’s ongoing evolution and highlights its contributions to
-
-the advancement of computer vision and image processing.
+\end{equation}
+The default threshold is typically $\tau = 0.5$, but can be adjusted based on:
+\begin{itemize}
+    \item Class imbalance
+    \item Cost of false positives vs. false negatives
+    \item Desired precision-recall trade-off
+\end{itemize}
+
+\subsection{Probability Calibration}
+Well-calibrated classifiers produce probability estimates that reflect true likelihood. For example, if a classifier predicts P(y=1)=0.7P(y = 1) = 0.7
+P(y=1)=0.7 for 100 instances, approximately 70 should be positive class.
+
+Methods for calibration:
+\begin{itemize}
+\item \textbf{Platt Scaling}: Fits a logistic regression on classifier outputs
+\item \textbf{Isotonic Regression}: Fits a non-parametric monotonic function
+\end{itemize}
+Logistic Regression naturally produces well-calibrated probabilities, while tree-based models (especially deep trees) may require calibration.
+\section{Chapter Summary}
+This chapter provided a comprehensive theoretical foundation for the machine learning techniques employed in antimicrobial resistance prediction. Key concepts covered include:
+\begin{enumerate}
+\item \textbf{Supervised Learning}: Training models on labeled data for binary classification
+\item \textbf{Feature Engineering}: Creating the R-Score to capture cumulative resistance burden
+\item \textbf{Feature Selection}: Hybrid approach combining statistical (ANOVA) and model-based (XGBoost) methods
+\item \textbf{Class Imbalance Handling}: Resampling techniques with focus on SMOTE-Tomek
+\item \textbf{Classification Algorithms}: Logistic Regression, SVM, Decision Tree, Random Forest, and XGBoost
+\item \textbf{Ensemble Learning}: Weighted soft voting to combine diverse classifiers
+\item \textbf{Evaluation Metrics}: Comprehensive assessment using accuracy, precision, recall, F1-score, AUROC, and AUPRC
+\item \textbf{Model Interpretability}: Permutation importance and SHAP for explainable predictions
+\item \textbf{Hyperparameter Optimization}: Grid search with cross-validation
+\item \textbf{Data Leakage Prevention}: Proper train-test protocol to ensure unbiased evaluation
+\end{enumerate}

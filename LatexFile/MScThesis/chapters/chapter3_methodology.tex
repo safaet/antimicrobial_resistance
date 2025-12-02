@@ -1,86 +1,102 @@
-\chapter{Materials and Methods}
+\chapter{Methodology}
 
-\section{Research Methodology}
+\section{Overview}
+This chapter presents a comprehensive methodology for predicting Antimicrobial Resistance (AMR) using machine learning techniques applied to resistance gene profiles. The proposed approach demonstrates that resistance gene-based prediction can achieve performance comparable to, or exceeding, whole-genome sequence (WGS)-based methods while maintaining computational efficiency and biological interpretability.
 
-\subsection{Data Collection}
-
-This study utilized publicly available genomic and phenotypic data on antimicrobial resistance (AMR) from the NCBI Pathogen Detection database \cite{ncbi_pathogen_detection}, as curated and preprocessed by Sunuwar et al.\ \cite{sunuwar2021mlframework}. The dataset consists of multiple subsets, each corresponding to a specific bacterial species and antibiotic combination (e.g., \textit{Escherichia coli}--meropenem, \textit{Klebsiella pneumoniae}--doripenem, \textit{Pseudomonas aeruginosa}--imipenem, etc.). Each subset contained approximately $10^2$–$10^3$ isolates with known antimicrobial susceptibility test (AST) outcomes (resistant or susceptible), consistent with prior AMR prediction studies \cite{sunuwar2022novelamr}.
-
-Genomic features were represented in a binary gene presence–absence format following the procedures described by Sunuwar and Azad \cite{sunuwar2022novelamr}. The union of all annotated genes across isolates formed the feature space, typically containing several hundred genes per dataset. Each isolate’s entry consisted of 1s and 0s reflecting gene presence or absence. The final column represented the AST phenotype, with resistant = 1 and susceptible = 0. Any intermediate susceptibility states were treated as resistant, following the conservative classification approach in Sunuwar et al.\ \cite{sunuwar2021mlframework}.
-
-All data were provided as CSV files, one file per antibiotic–species combination. Preprocessing steps included:  
-(1) removing isolates lacking genomic features or phenotype labels;  
-(2) standardizing gene names and renaming hypothetical proteins following Sunuwar et al.\ protocols \cite{sunuwar2022novelamr};  
-(3) verifying class imbalance for model selection;  
-(4) ensuring no missing values remained (binary features imply absence).
-
-Thus, the curated dataset consisted of clean binary feature matrices suitable for machine learning analysis.
-
-\subsection{Feature Engineering}
-
-Feature engineering followed two complementary strategies: (1) gene presence features, and (2) k-mer–based alignment-free features.
-
-First, binary features representing known antimicrobial resistance genes (e.g., \textit{aac(3)-IIa}, \textit{tet(B)}) were included directly as in prior AMR studies \cite{sunuwar2022novelamr}. These features capture canonical resistance determinants documented in the literature.
-
-Second, genomic sequences were represented using fixed-length nucleotide k-mers, an approach widely used in alignment-free genomic analyses \cite{alignmentfree2021}. K-mer frequencies were computed by scanning each assembled genome, treating the genome analogously to a document in text mining. Because raw k-mer vectors can be extremely sparse and high-dimensional, term frequency–inverse document frequency (TF-IDF) weighting was applied, a technique validated in multiple genomic machine learning studies \cite{tfidf_alignmentfree, bioset2vec2025}.
-
-TF-IDF weighting emphasizes k-mers that appear frequently within an isolate but are relatively rare globally across genomes, making them useful for distinguishing resistant vs.\ susceptible isolates. Formally:
-
-\[
-\text{TF-IDF}(k\text{-mer}) = \text{TF}(k\text{-mer}) \times \log\left(\frac{N}{n_k}\right),
-\]
-
-where $\text{TF}(k\text{-mer})$ is the normalized count in a genome, $N$ is total genomes, and $n_k$ is number of genomes containing the k-mer.
-
-Additionally, an aggregate feature named \textbf{R-Score} was engineered to capture the total “AMR gene burden'' of each isolate. The R-Score was defined as the row sum of all known resistance gene indicators and then min–max normalized to $[0,1]$. Previous work has shown that such row-sum AMR metrics may improve classifier robustness \cite{sunuwar2021mlframework}.
-
-All feature engineering steps—including TF-IDF fitting—were conducted inside training folds only to prevent data leakage.
-
-\subsection{Model Selection}
-
-A broad spectrum of machine learning algorithms was evaluated using scikit-learn \cite{scikit2011}, XGBoost, and LightGBM.
-
-Models included:
-
-\begin{itemize}
-    \item \textbf{Logistic Regression (L2-regularized)} — baseline linear model widely used in genomic ML \cite{sunuwar2021mlframework}.
-    \item \textbf{Support Vector Machine (RBF kernel)} — effective in high-dimensional spaces, often used in AMR prediction tasks \cite{sunuwar2022novelamr}.
-    \item \textbf{Decision Tree (CART)} — interpretable but prone to overfitting \cite{majek2021genomewide}.
-    \item \textbf{Random Forest} — ensemble method robust to feature noise; used extensively in AMR gene prediction \cite{majek2021genomewide}.
-    \item \textbf{XGBoost and LightGBM} — state-of-the-art gradient boosting algorithms shown to perform well on genomic datasets \cite{bioset2vec2025, rannon2025dramma}.
-    \item \textbf{Naïve Bayes models} — fast baselines included for completeness.
-    \item \textbf{k-Nearest Neighbors, LDA} — evaluated but not optimal for sparse genomic matrices.
-\end{itemize}
-
-A specialized soft-voting ensemble, named \textbf{R-Blend}, was constructed to combine strengths of three high-performing models:
-
+The methodology encompasses six key stages:
 \begin{enumerate}
-    \item Logistic Regression,
-    \item Decision Tree,
-    \item XGBoost.
+  \item Dataset Collection and Preprocessing
+  \item Feature Engineering
+  \item Feature Selection
+  \item Class Imbalance Handling
+  \item Model Training and Ensemble Construction
+  \item Model Interpretability and Explainability
 \end{enumerate}
 
-Weights (1:1.5:1) were assigned to emphasize the well-calibrated probabilities of Logistic Regression.
+The pipeline addresses specific challenges of AMR genomic data, such as high dimensionality, sparsity of binary gene matrices, and class imbalance. Figure~\ref{fig:workflow} illustrates the complete workflow of the proposed methodology.
 
-Hyperparameter optimization was performed via stratified k-fold cross-validation. SMOTE, random oversampling, and class-weight adjustments were employed to handle imbalance, consistent with existing best practices \cite{sunuwar2022novelamr, sunuwar2021mlframework}.
-
-\subsection{Evaluation}
-
-Each dataset was split into 80\% training and 20\% held-out testing sets, using stratified sampling to preserve label proportions \cite{sunuwar2021mlframework}. Model tuning used stratified $k$-fold cross-validation (typically $k=5$). In selected cases, nested cross-validation and leave-one-out cross-validation (LOOCV) were explored to reduce variance, similar to methods used in prior genomic AMR studies \cite{majek2021genomewide}.
-
-Performance evaluation employed multiple metrics:
-
+\section{Dataset Collection and Preprocessing}
+\subsection{Data Source}
+The study utilized antimicrobial susceptibility testing (AST) data and genomic profiles from the NCBI Pathogen Detection Database. Resistance gene annotations were obtained via the AMRFinderPlus pipeline. Twelve datasets were compiled:
 \begin{itemize}
-    \item Accuracy,
-    \item Precision,
-    \item Recall,
-    \item F1-score (primary metric),
-    \item Area Under ROC Curve (AUROC),
-    \item Area Under Precision–Recall Curve (AUPRC),
-    \item Confusion matrix visualization.
+  \item \textit{Klebsiella pneumoniae}: Doripenem, Ertapenem, Imipenem, Meropenem
+  \item \textit{Escherichia coli} and \textit{Shigella}: Doripenem, Ertapenem, Imipenem, Meropenem
+  \item \textit{Pseudomonas aeruginosa}: Doripenem
+  \item \textit{Salmonella enterica}: Streptomycin, Kanamycin
+  \item \textit{Campylobacter jejuni}: Clindamycin
 \end{itemize}
 
-AUPRC was emphasized due to class imbalance, as recommended in multiple AMR machine learning works \cite{rannon2025dramma}. ROC and PR curves were generated for diagnostic visualization. Standard deviation across folds and statistical tests (e.g., paired t-test on F1-scores) were used to confirm robustness.
+\subsection{Binary Gene Matrix Construction}
+Each isolate was represented as a binary gene presence vector $\mathbf{x}_i \in \{0, 1\}^n$. Detection completeness metadata (e.g., COMPLETE, PARTIAL) was encoded as additional binary features. The label $y_i \in \{0,1\}$ denotes resistance status.
 
-All experiments were executed with fixed random seeds and version-controlled scripts to ensure full reproducibility, following reproducibility standards in computational biology \cite{scikit2011}.
+\section{Feature Engineering}
+\subsection{Resistance Gene Load Score (R-Score)}
+The R-Score is computed as:
+\[ \text{R-Score}_i = \sum_{j=1}^n x_{ij} \]
+It is then normalized using min-max scaling:
+\[ \text{R-Score}'_i = \frac{\text{R-Score}_i - \min(\text{R-Score})}{\max(\text{R-Score}) - \min(\text{R-Score})} \]
 
+\subsection{Justification and Impact Analysis}
+Inclusion of R-Score improved model performance and provided biologically interpretable separation between resistant and susceptible classes.
+
+\section{Feature Selection}
+\subsection{Stage 1: ANOVA F-test}
+Univariate statistical filtering was performed using ANOVA F-statistics. Features with $p \leq 0.30$ were retained.
+
+\subsection{Stage 2: XGBoost Importance}
+An XGBoost model (400 trees, max depth 6) was used to compute feature importances. Features accounting for 85\% cumulative importance were selected.
+
+\subsection{Final Feature Set}
+Selected features were combined as:
+\[ S_{\text{final}} = S_{\text{ANOVA}} \cup S_{\text{XGB}} \]
+
+\section{Class Imbalance Handling}
+\subsection{Resampling Strategy}
+The study compared several strategies (SMOTE, ADASYN, etc.) and selected SMOTETomek based on classification performance and biological plausibility.
+
+\section{Model Training and Ensemble Construction}
+\subsection{Base Models}
+Evaluated models included:
+\begin{itemize}
+  \item Logistic Regression (LogR)
+  \item Support Vector Machine (SVM)
+  \item Decision Tree (DT)
+  \item Random Forest (RF)
+  \item XGBoost (XGB)
+\end{itemize}
+
+\subsection{R-Blend Ensemble}
+R-Blend is a soft-voting ensemble combining DT, LogR, and XGB with weights [1.0, 1.5, 1.0]:
+\[ P(y = c | \mathbf{x}) = \frac{\sum_i w_i \cdot P_i(y=c | \mathbf{x})}{\sum_i w_i} \]
+
+\section{Evaluation Metrics}
+The following metrics were used:
+\begin{itemize}
+  \item Accuracy
+  \item Precision
+  \item Recall
+  \item F1-Score
+  \item AUROC
+  \item AUPRC
+\end{itemize}
+
+\section{Model Interpretability and Explainability}
+\subsection{Permutation Importance}
+Assesses drop in performance when shuffling feature values.
+
+\subsection{SHAP Values}
+Computed using TreeExplainer (for DT/XGB) and LinearExplainer (for LogR):
+\[ f(\mathbf{x}) = \phi_0 + \sum_j \phi_j(x_j) \]
+
+\subsection{Ensemble SHAP Aggregation}
+\[ \phi^{\text{ensemble}}_j(\mathbf{x}) = \frac{\sum_i w_i \cdot \phi_j^{(i)}(\mathbf{x})}{\sum_i w_i} \]
+
+\section{Experimental Design and Validation}
+\begin{itemize}
+  \item Ablation studies on R-Score, resampling, and ensemble impact
+  \item Validation across 12 datasets with mean \& std metrics
+  \item Comparison with published methods (Her \& Wu, Yasir et al.)
+\end{itemize}
+
+\section{Implementation}
+Code was implemented in Python 3 using scikit-learn, XGBoost, imbalanced-learn, SHAP, pandas, and matplotlib. Experiments were run in Google Colab with GPU acceleration.
