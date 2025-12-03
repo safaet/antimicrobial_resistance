@@ -4,79 +4,88 @@
 
 As established in Chapter 1, the urgent need for rapid antimicrobial resistance (AMR) prediction has driven significant research into computational approaches leveraging genomic data. This chapter reviews the current state of machine learning methods for AMR prediction, tracing the evolution from rule-based systems to advanced ensemble and deep learning architectures.
 
-We review two primary prediction paradigms: (1) resistance gene-based approaches using binary gene presence/absence features, and (2) whole genome sequence (WGS)-based approaches using k-mers, SNPs, or pan-genome features. We evaluate methodological choices, performance, and limitations---especially the underreported accuracy--sensitivity tradeoff.
+The review is organized around two primary prediction paradigms: resistance gene-based approaches, which utilize binary presence/absence matrices of known AMR genes, and whole genome sequence (WGS)-based approaches, which extract features such as k-mers, SNPs, or pan-genome content from complete genomic sequences. For each paradigm, we examine representative studies, analyze their methodological choices, and critically evaluate their performance with particular attention to the often-overlooked accuracy-sensitivity tradeoff.
 
-The review also highlights enabling infrastructure (AMR gene databases), feature engineering strategies, feature selection methods, class imbalance handling techniques, and ensemble architectures. Five critical gaps in the literature are identified and addressed by the methodological innovations of this thesis.
+We also review key enabling infrastructure, including AMR gene databases (AMRFinderPlus, ResFinder, CARD) that underpin genomic prediction, as well as cross-cutting methodological considerations: feature engineering strategies, feature selection methods, class imbalance handling techniques, and ensemble architectures. Through this analysis, we identify five critical gaps in the existing literature that motivate the methodological contributions of this thesis: the absence of cumulative gene burden features, limited hybrid feature selection strategies, inadequate evaluation of advanced resampling methods for sparse gene matrices, underexplored weighted ensemble optimization, and insufficient direct comparison between gene-based and WGS-based approaches.
 
 \section{AMR Gene Databases and Detection Tools}
 
-Accurate genomic AMR prediction depends on high-quality reference databases:
+Accurate genomic prediction of AMR relies on high-quality reference databases of resistance determinants. Several major databases underpin modern AMR gene detection and feature engineering for ML models.
 
 \subsection*{AMRFinderPlus (NCBI)}
-Identifies acquired resistance genes and point mutations using BLAST and HMMs \cite{feldgarden2021}. Provides coverage/identity metrics and integrates with NCBI Pathogen Detection, supporting ML dataset generation \cite{ncbiPD}.
-
+Identifies acquired resistance genes and point mutations using BLAST and HMMs \cite{feldgarden2021}. It covers a broad scope including stress response genes and virulence factors. AMRFinderPlus provides gene coverage and identity metrics to gauge prediction confidence (e.g., distinguishing complete vs. partial hits). The NCBI Pathogen Detection database integrates AMRFinderPlus outputs with phenotypic AST data, yielding labeled datasets suitable for machine learning \cite{ncbiPD}.
 \subsection*{ResFinder 4.0}
-Uses k-mer alignment to detect acquired genes, with PointFinder detecting chromosomal mutations \cite{bortolaia2020}. Concordance exceeds 96\% for well-characterized mechanisms \cite{mcdermott2016}.
+(CGE) uses k-mer based alignment to detect horizontally acquired resistance genes, with PointFinder for known chromosomal mutations [8]. ResFinder offers high specificity for known resistance genes, with concordance >96\% with phenotypic AST for well-characterized mechanisms \cite{bortolaia2020}. The Comprehensive Antibiotic Resistance Database (CARD) contains over 300,000 resistance gene sequences and their known resistance phenotypes. In 2023, CARD introduced standardized 15-character Short Names for each resistance gene allele to facilitate machine learning feature encoding \cite{mcdermott2016}.
 
 \subsection*{CARD (Comprehensive Antibiotic Resistance Database)}
-Contains 300,000+ AMR gene sequences. The 2023 update introduced 15-character standardized “Short Names” for ML applications \cite{alcock2023}.
+While these tools form the foundation for genomic AMR prediction, their coverage is inherently limited to previously known resistance determinants. Rule-based gene detection achieves high accuracy for well-characterized mechanisms but will miss novel resistance genes or mutations absent from databases \cite{alcock2023}.Additionally, the mere presence of a resistance gene does not guarantee phenotypic resistance. Factors like gene expression level, regulatory mutations, or epistatic interactions modulate the genotype-phenotype relationship \cite{hughes2023genotypephenotype}. These limitations motivate the use of machine learning to learn resistance patterns from data, potentially capturing signals beyond curated gene lists.
 
-\subsection*{Limitations}
+\subsection*{Limitations of Database-Driven Detection:}
 Database-driven detection captures only known mechanisms, cannot detect novel genes, and gene presence does not guarantee phenotypic resistance due to expression-level or regulatory factors \cite{hughes2023}. These limitations motivate ML-based prediction.
 
 \section{Evolution of Machine Learning Approaches for AMR Prediction}
+The application of ML to AMR prediction has progressed through distinct stages, from simple rule-based algorithms to complex ensemble and deep learning models.
 
 \subsection{Rule-Based Detection (2010--2016)}
-Tools such as ResFinder and ARIBA match genomes to known markers \cite{hunt2017}. Davis et al.~(2016) first showed ML potential by training AdaBoost on 31-mers, achieving 88--99\% accuracy across multiple pathogens \cite{davis2016}.
+Early efforts relied on deterministic rules leveraging known resistance markers. Tools like ResFinder and ARIBA (Antimicrobial Resistance Identification By Assembly) scan genomes for canonical resistance genes or mutations \cite{hunt2017}. Davis et al. (2016) demonstrated an important proof-of-concept using the PATRIC database, encoding 31-mer DNA k-mers and training an AdaBoost classifier to predict resistance phenotypes across A. baumannii, S. aureus, and S. pneumoniae. The k-mer based model achieved 88–99\% accuracy \cite{davis2016}, highlighting that sequence data contain rich signals of resistance that ML can exploit even without explicit gene annotation.
 
 \subsection{Classical Machine Learning (2016--2022)}
 
 \subsubsection*{Pan-Genome Models}
-Her \& Wu (2018) used 15,950 gene clusters for \textit{E. coli}, achieving AUC > 0.90 using SVM+GA \cite{her2018}. However, the dataset was extremely small (59 strains).
+Her \& Wu (2018) pioneered a pan-genome-based approach for E. coli using 59 strains from the PATRIC database. They constructed a pan-genome with 15,950 gene clusters (2,874 core, 13,076 accessory) and found that only ~61\% of known CARD resistance genes were in the accessory genome—core genes (present in every isolate) provided no discriminative power \cite{her2018}. Using SVM with genetic algorithm feature selection, they achieved AUC >0.90 for most antibiotics \cite{her2018}. However, their study had a critical limitation: the extremely small sample size (59 strains) serves only as proof-of-concept, and no class imbalance handling was applied.
 
 \subsubsection*{Large-Scale Studies}
-Moradigaravand et al. (2018) analyzed 1,936 \textit{E. coli} genomes using pan-genome presence/absence + SNPs. GBDT achieved 0.91 accuracy, but recall dropped to 64--74\% for certain antibiotics, misclassifying many resistant isolates \cite{moradi2018}.
+Moradigaravand et al. (2018) performed a landmark analysis of 1,936 E. coli isolates, incorporating 90,261 accessory genes and >1.4 million SNPs \cite{moradi2018}. Gradient boosted decision trees (GBDT) outperformed other classifiers (including deep neural networks), with average accuracy 0.91 (range 0.81 - 0.97) \cite{moradi2018}. Critically, they observed a significant accuracy-sensitivity tradeoff: for amoxicillin-clavulanate, accuracy was 81\% but recall for resistance was only 64\%; for cefuroxime, recall dropped to 74\% - meaning 26 - 36\% of resistant isolates were misclassified as susceptible \cite{moradi2018}. This study applied no class imbalance handling despite average resistance frequency of 0.35 (range 0.15 - 0.63).
 
 \subsubsection*{Generalization Failure}
-Nsubuga et al. (2024) trained on UK data but accuracy dropped from 87--92\% to 45--50\% when tested on African isolates; F1-scores fell to 0.42--0.57 \cite{nsubuga2024}.
+Nsubuga et al. (2024) tested ML models trained on 1,509 England E. coli isolates against 170 African isolates from Uganda, Nigeria, and Tanzania \cite{nsubuga2024}. They observed dramatic generalization failure: accuracy dropped from 87\% to 50\% for ciprofloxacin and from 92\% to 45\% for cefotaxime when validated on African data \cite{nsubuga2024}. Despite high training accuracy, F1-scores were critically low (0.42–0.57), demonstrating the pervasive accuracy-sensitivity tradeoff in AMR prediction. Even with down-sampling for class balancing, the models failed to generalize across populations.
 
 \subsubsection*{Meta-analysis}
-A 21-study systematic review (Ardila 2025) found Random Forest best (mean AUROC 0.80) but highlighted lack of prospective validation \cite{ardila2025}.
+A systematic review by Ardila et al. (2025) synthesized findings from 21 studies evaluating ML for AMR in clinical settings \cite{ardila2025}. On average, ensemble tree-based models performed best: Random Forest achieved mean AUROC ~0.80 (range 0.58–0.98), versus ~0.68 (0.50–0.83) for logistic regression \cite{ardila2025}. The meta-analysis confirmed that integrating WGS data with AST phenotypes significantly improves prediction performance, but also noted that most models lack prospective validation \cite{ardila2025}.
 
 \subsection{Deep Learning Approaches (2022--Present)}
 
-MSDeepAMR used transfer learning on MALDI-TOF data, achieving AUROC > 0.83 \cite{lopez2024}. MCT-ARG achieved 99.23\% AUC for ARG classification using Transformers \cite{he2025}. However, deep models lack interpretability and require large datasets \cite{moradi2018}. Wang et al. (2025) emphasize correlation vs. causation concerns \cite{wang2025}.
+Recent advances have explored deep learning and transformer architectures for AMR prediction. López-Cortés et al. (2024) developed MSDeepAMR, a deep neural network with transfer learning for MALDI-TOF mass spectrometry data, achieving AUROC >0.83 for predicting resistance in E. coli/K. pneumoniae \cite{lopez2024}. He et al. (2025) proposed MCT-ARG, a multi-channel Transformer model achieving AUC-ROC of 99.23\% for ARG classification \cite{he2025}.   
+
+\textbf{Challenges:} While deep learning approaches show promise, they require substantially larger training datasets and offer reduced interpretability compared to classical ML methods \cite{wang2025}. These are important considerations for clinical deployment where clinicians must understand which genetic factors drive predictions. Wang et al. (2025) caution that feature importance reflects correlation with predictions, not causal associations \cite{wang2025}.
 
 \section{Resistance Gene-Based Prediction Methods}
 
+Resistance gene-based approaches use binary presence/absence features of known AMR genes as inputs to ML models. This paradigm offers biological interpretability (predictions can be traced to specific genes), computational efficiency (reduced feature dimensionality), and alignment with established microbiological practiced.
 \subsection{Sunuwar \& Azad Framework}
-A major resistance gene-based ML framework using datasets from NCBI Pathogen Detection across five pathogens and seven antibiotics \cite{sunuwar2021}. Models (LDA, SVM, NB, DT, XGB) achieved F1 $\approx$ 0.90 \cite{sunuwar2022}.
+Sunuwar \& Azad (2021) developed a foundational machine learning framework for resistance gene-based AMR prediction \cite{sunuwar2021}. Their approach was unbiased in considering all protein-coding genes, not just those annotated in resistance databases. They compiled datasets from the NCBI Pathogen Detection database, including K. pneumoniae, E. coli, P. aeruginosa, Salmonella enterica, and Campylobacter jejuni, with resistance profiles for carbapenems (doripenem, ertapenem, imipenem, meropenem), aminoglycosides (kanamycin, streptomycin), and clindamycin \cite{sunuwar2021}. Using multiple classifiers (LDA, SVM, Naive Bayes, Decision Trees, XGBoost), they established baseline performance around F1 $\approx$ 0.90 for many pathogen-antibiotic combinations \cite{sunuwar2021}.
 
-\subsection{Limitations}
+\subsection{Limitations and Research Gaps}
+While the Sunuwar \& Azad framework provides a solid foundation, several methodological limitations present opportunities for improvement:
 \begin{itemize}
-    \item No engineered features capturing cumulative gene burden.
-    \item Feature selection limited to simple filtering or single-method embedded techniques.
-    \item No weighted ensembles; only basic or equal-weight models.
-    \item Limited use of advanced imbalance handling.
+    \item \textbf{Feature Engineering Gap}: Each resistance gene is treated as a separate binary feature (present/absent), ignoring the cumulative effect of carrying multiple resistance genes \cite{sunuwar2021}. An isolate with 10 resistance genes likely has a more robust resistance phenotype than one with a single gene, yet no aggregate "gene load" metric is incorporated. No existing study incorporates a resistance gene burden score despite biological rationale for its predictive value.
+    \item \textbf{Feature Selection Gap}: Standard approaches use either univariate filtering or single-method embedded selection. Hybrid strategies combining filter and embedded methods to capture both linear and non-linear feature relevance remain unexplored in AMR contexts \cite{sunuwar2021}.
+    \item \textbf{Ensemble Architecture Gap}: Most studies employ single classifiers or simple voting ensembles with equal weights. Weighted soft voting ensembles that leverage complementary strengths of different model families and account for probability calibration quality have not been systematically explored \cite{sunuwar2021}.
+    \item \textbf{Class Imbalance Handling Gap}: While class imbalance is acknowledged, systematic evaluation of advanced resampling strategies specifically suited to sparse, high-dimensional binary gene matrices is limited. Hybrid methods combining synthetic sample generation with cleaning steps (e.g., SMOTE-Tomek) remain underexplored for AMR prediction \cite{sunuwar2021}.
 \end{itemize}
 
 \section{Whole Genome Sequence-Based Prediction Methods}
 
+While class imbalance is acknowledged, systematic evaluation of advanced resampling strategies specifically suited to sparse, high-dimensional binary gene matrices is limited. Hybrid methods combining synthetic sample generation with cleaning steps (e.g., SMOTE-Tomek) remain underexplored for AMR prediction \cite{sunuwar2021}.
+
 \subsection{K-mer Models}
-Nguyen et al. (2018) built 10-mer MIC prediction models for \textit{K. pneumoniae}, achieving 92\% accuracy \cite{nguyen2018}. Amino acid k-mers also shown predictive potential \cite{aslani2020}.
+Nguyen et al. (2018) built the first complete in silico MIC prediction panel for K. pneumoniae. They counted 10-mer frequencies from each genome and trained XGBoost models to predict susceptibility for 20 antibiotics, achieving average accuracy ~92\% with prediction time of ~2 minutes per genome \cite{nguyen2018}. ValizadehAslani et al. (2020) explored amino acid k-mers as an alternative, demonstrating that 5-mer amino acid features provide comparable accuracy while producing interpretable alignments to known AMR genes \cite{aslani2020}.
 
-\subsection{Critical Review of BioWeka (Noman et al., 2023)}
+\subsection{The Noman et al. BioWeka Framework: A Critical Analysis}
+Noman et al. (2023) applied WGS-based ML to P. aeruginosa across 12 antimicrobial agents using the BioWeka framework \cite{noman2023}. Using Random Forest with 10-fold cross-validation on complete genomic sequences, they reported impressive mean accuracy $\ge$98\% \cite{noman2023}. However, a critical examination of their results reveals a fundamental flaw: despite high accuracy, the model exhibits severely low sensitivity and precision for several antibiotics.
 
-BioWeka achieved $\geq$98\% accuracy for \textit{P. aeruginosa} but sensitivity as low as 62\% for amoxicillin and average F1 only 83.2\% \cite{noman2023}. This severe accuracy--sensitivity tradeoff reflects majority-class bias in high-dimensional k-mer spaces.
+Despite reporting $\ge$98\% accuracy, Noman et al.'s BioWeka approach exhibits: (1) Very low sensitivity for amoxicillin (62\%)—meaning 38\% of resistant isolates are missed, which could lead to treatment failure; (2) Suboptimal average sensitivity (84.4\%) across all antibiotics; (3) Low average F1-score (83.2\%) indicating poor balance between precision and recall. No class imbalance handling methods were applied.
 
-Given that false negatives lead to treatment failure \cite{kim2022}, high accuracy is insufficient.
+These limitations are likely attributable to the high-dimensional feature space (millions of k-mers) causing the model to overfit to the majority class (susceptible), achieving high overall accuracy at the expense of sensitivity for the clinically critical resistant class. As Kim et al. (2022) stated: "False-negative diagnosis leads to treatment failure" [36]—making low sensitivity clinically unacceptable despite high accuracy. This raises a critical question: Can resistance gene-based approaches, using only a fraction of the genomic information with appropriate methodological enhancements, achieve superior balanced performance?
 
-\subsection{Comparison of Paradigms}
+
+\subsection{Comparative Considerations:}
+Table 2.2 summarizes the trade-offs between resistance gene-based and WGS-based approaches:
 
 \begin{table}[h]
 \centering
 \caption{Comparison of Gene-Based vs. WGS-Based AMR Prediction}
-\begin{tabular}{p{3.5cm} p{5cm} p{5cm}}
+\begin{tabular}{p{5cm} p{3cm} p{5cm}}
 \hline
 Aspect & Gene-Based & WGS-Based \\
 \hline
@@ -93,34 +102,76 @@ Sensitivity Risk & Moderate & High (overfitting) \\
 \section{Feature Engineering and Selection Strategies}
 
 \subsection{Feature Engineering}
-Gene presence/absence is standard \cite{mather2020}. But cumulative gene burden strongly correlates with resistance phenotype \cite{kim2022}. No existing studies incorporate a normalized gene load feature.
+Most resistance gene-based studies employ simple binary encoding: each known resistance gene is a feature set to 1 if present, 0 if absent \cite{mather2020}. This treats all genes independently and equally, which may not reflect biology. There is evidence that cumulative gene content affects phenotype—an isolate with multiple $\beta$-lactamase genes may exhibit higher resistance due to synergistic effects or redundant protection pathways \cite{kim2022}.
 
-\subsection{Feature Selection}
-Filter (ANOVA, chi-square), wrapper (GA), and embedded (RF/XGB) methods are common \cite{guyon2003}. Hybrid filter + embedded union-based strategies remain unexplored in AMR.
+Surprisingly, the literature reveals no exploration of aggregate gene burden metrics as engineered features. While gene load has been studied epidemiologically, its incorporation as a predictive feature for ML models remains unexplored \cite{kim2022}. This represents a significant gap: a normalized resistance gene count could capture important predictive signal not available from individual gene indicators alone.
 
-\section{Class Imbalance Handling}
+\subsection{Feature Selection Methods:}
+Feature selection methods fall into three categories: filter methods (univariate statistical tests like ANOVA or chi-square), wrapper methods (search-based selection), and embedded methods (selection integrated into model training such as tree-based importance) \cite{guyon2003}. For AMR prediction, commonly employed approaches include chi-square tests for univariate association and Random Forest or XGBoost importance for non-linear relationships.
 
-Imbalance ratios vary widely. Classical approaches include oversampling, undersampling, and SMOTE \cite{batista2004}. Hybrid methods like SMOTE-Tomek and SMOTE-ENN are promising for sparse binary matrices \cite{chawla2002}, yet understudied in AMR.
+A hybrid approach combining filter and embedded methods can leverage complementary strengths. For instance, taking the union of top features by ANOVA p-value (filter) and XGBoost importance (embedded) captures genes that are either linearly associated or non-linearly predictive. However, systematic evaluation of such hybrid strategies for AMR gene matrices is absent from the literature \cite{guyon2003}.
 
-\section{Ensemble Methods and Interpretability}
+\section{Class Imbalance Handling in AMR Prediction}
 
-\subsection{Ensemble Learning}
-Stacked ensembles improve performance by 1.7--3.2\% \cite{yang2022}. However, weighted soft-voting optimized for AMR is largely unexplored.
+Class imbalance is endemic in AMR datasets, with resistant isolates often underrepresented. Imbalance ratios can range from nearly balanced to severely skewed (>10:1), biasing classifiers toward majority class prediction and reducing sensitivity for resistance detection \cite{kim2022}. 
 
-\subsection{Interpretability}
-SHAP is widely adopted \cite{lundberg2017}. SHAP analyses identify both known and novel markers (e.g., gyrA, ampC, oprD) \cite{khaledi2020}. But caution is needed—importance reflects correlation, not causation \cite{wang2025}.
+Resampling strategies include Random Oversampling, Random Undersampling, and SMOTE (Synthetic Minority Over-sampling Technique) \cite{batista2004}. Hybrid methods combining oversampling with cleaning steps have shown promise: SMOTE-Tomek combines SMOTE with Tomek links removal (eliminating nearest-neighbor pairs from different classes), while SMOTE-ENN combines SMOTE with Edited Nearest Neighbors cleaning \cite{chawla2002}. For sparse, high-dimensional binary matrices characteristic of AMR gene data, simple SMOTE may generate biologically implausible synthetic samples; cleaning steps can mitigate this risk but have not been systematically evaluated in the AMR context \cite{chawla2002}.
 
-\section{Research Gaps Identified}
+\section{Ensemble Methods and Model Interpretability}
+
+\subsection{Ensemble Architecture}
+
+Ensemble methods combining multiple base classifiers have demonstrated improved robustness. Yang \& Wu (2022) showed that stacked generalization improves performance by 1.77–3.20\% compared to individual models \cite{yang2022}. However, most studies employ simple averaging or majority voting without exploring weighted combination strategies.
+
+Weighted soft voting ensembles allow differential contribution from models with varying reliability. Weight optimization strategies specifically for AMR prediction remain underexplored. Considerations include model calibration quality (well-calibrated probabilities are essential for effective soft voting), complementarity of model families (linear vs. tree-based), and dataset-specific performance characteristics \cite{yang2022}.
+
+\subsection{Model Interpretability}
+
+Clinical acceptance requires interpretability—clinicians must understand which genetic factors drive predictions. SHAP (SHapley Additive exPlanations) has emerged as the standard for feature attribution \cite{lundberg2017}. Khaledi et al. (2020) demonstrated integrated genomic-transcriptomic prediction for P. aeruginosa with sensitivity of 0.81–0.95; SHAP analysis identified known resistance determinants (gyrA, ampC, oprD) alongside novel markers \cite{khaledi2020}. However, Wang et al. (2025) caution that feature importance reflects correlation, not causation \cite{wang2025}.
+
+\section{Research Gaps and Motivation for Present Study}
+
+This literature review identifies several critical methodological gaps that motivate the present study:
 
 \begin{itemize}
-    \item \textbf{Gap 1:} No engineered feature for cumulative gene burden (R-Score introduced in this thesis).
-    \item \textbf{Gap 2:} No hybrid ANOVA + XGBoost feature selection evaluation.
-    \item \textbf{Gap 3:} Limited exploration of SMOTETomek for sparse gene matrices.
-    \item \textbf{Gap 4:} No weighted ensemble optimization (R-Blend proposed).
-    \item \textbf{Gap 5:} Lack of direct comparison between enhanced gene-based vs. WGS-based approaches.
+    \item \textbf{Gap 1 – Feature Engineering:} While binary gene presence/absence matrices are standard, aggregate measures of resistance gene burden have not been explored as engineered features despite biological rationale. We introduce the R-Score, a normalized resistance gene load score to capture cumulative resistance effects.
+    \item \textbf{Gap 2 – Hybrid Feature Selection:} Systematic evaluation of hybrid strategies combining filter methods (ANOVA) with embedded methods (XGBoost importance) is lacking. We propose union-based integration that retains features important under either modeling assumption.
+    \item \textbf{Gap 3 – Advanced Class Imbalance Handling:} While SMOTE is occasionally applied, hybrid resampling methods combining synthesis with cleaning have not been systematically evaluated for sparse binary AMR gene matrices. We evaluate SMOTETomek specifically tailored for this data type.
+    \item \textbf{Gap 4 – Weighted Ensemble Architectures:} Weighted soft voting ensembles optimized for AMR prediction, leveraging complementary strengths of linear and tree-based models, remain unexplored. We develop the R-Blend ensemble with optimized model weights.
+    \item \textbf{Gap 5 – Gene-Based vs. WGS Performance Comparison:} Direct comparison of optimized resistance gene-based approaches against WGS-based methods on identical datasets is needed. We benchmark our approach against both Sunuwar \& Azad (gene-based) and Noman et al. (WGS-based) to quantify trade-offs.
 \end{itemize}
 
-\section{Summary}
+\section{Chapter Summary}
 
-This chapter reviewed the current landscape of ML-based AMR prediction and identified five foundational research gaps. These gaps motivate the innovations of the present work: R-Score, hybrid feature selection, SMOTETomek resampling, weighted ensemble design, and direct benchmarking against WGS-based approaches. The next chapter presents the proposed methodology addressing these gaps.
+Table 2.3 provides a comprehensive comparison of key machine learning studies for AMR prediction, highlighting methodological approaches, performance metrics, and limitations that the present work addresses.
 
+\begin{table}[h]
+\centering
+\caption{Comparison of Machine Learning Approaches for AMR Prediction}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{p{3cm} p{1.5cm} p{3cm} p{2.5cm} p{2.5cm} p{3.5cm}}
+\hline
+Study & Isolates & Feature Type & Best Model & Best F1/ACC & Key Limitation \\
+\hline
+Her \& Wu (2018) & 59 & Pan-genome & SVM+GA & AUC $>$ 0.90 & Only 59 strains \\
+Moradigaravand (2018) & 1,936 & Pan-genome + SNPs & GBDT & Acc: 0.91 & Recall 64--74\% for some \\
+Nguyen (2018) & $\approx$ 400 & 10-mer k-mers & XGBoost & Acc: $\sim$92\% & Low interpretability \\
+Sunuwar \& Azad (2021) & Varies & Resistance Genes & LDA/SVM & F1 $\approx$ 0.90 & No single proposed model \\
+Noman et al. (2023) & 1,200 & WGS (BioWeka) & RF & Acc $\ge$ 98\% & Sens: 62--84\%, F1: 83\% \\
+Nsubuga (2024) & 1,509 & WGS & SVM/LGB & Acc: 87--92\% & F1: 0.42--0.57; poor generalization \\
+Ardila (2025) & Meta & Various & RF/GBDT & AUC: 0.80 & No prospective validation \\
+Present Study & 15,000+ & R-Score + Genes & R-Blend & TBD & Addresses all gaps \\
+\hline
+\end{tabular}
+}
+\end{table}
+
+
+
+\section{Chapter Summary}
+
+This chapter reviewed the landscape of machine learning approaches for antimicrobial resistance prediction, tracing the evolution from rule-based detection to sophisticated ensemble and deep learning methods. Key databases (AMRFinderPlus, ResFinder, CARD) provide the foundation for resistance gene-based prediction, while WGS-based approaches offer comprehensive but computationally intensive alternatives.
+
+Critical analysis of existing work identified a pervasive accuracy-sensitivity tradeoff: models achieving high overall accuracy often exhibit unacceptably low sensitivity for the clinically critical resistant class. Noman et al.'s BioWeka approach, despite 98% accuracy, shows sensitivity as low as 62% for some antibiotics. Moradigaravand et al.'s large-scale E. coli study achieved only 64-74% recall for certain drugs. Nsubuga et al. demonstrated dramatic generalization failure when models were tested across populations.
+
+Five methodological gaps were identified: (1) no feature engineering for cumulative gene burden, (2) no hybrid feature selection strategies, (3) limited evaluation of advanced resampling for sparse gene matrices, (4) no weighted ensemble optimization, and (5) insufficient direct comparison between gene-based and WGS approaches. The following chapter presents a comprehensive methodology addressing these gaps through the R-Score feature, hybrid ANOVA-XGBoost feature selection, SMOTETomek resampling, and R-Blend weighted ensemble—demonstrating that optimized resistance gene-based approaches can achieve balanced performance superior to existing methods while maintaining interpretability and computational efficiency.

@@ -50,70 +50,71 @@
 \contentsline {section}{\numberline {2.13}Chapter Summary}{24}{section.2.13}%
 \contentsline {chapter}{\numberline {3}Literature Review}{26}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Introduction}{26}{section.3.1}%
-\contentsline {section}{\numberline {3.2}AMR Gene Databases and Detection Tools}{26}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Evolution of Machine Learning Approaches for AMR Prediction}{27}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Rule-Based Detection (2010--2016)}{27}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Classical Machine Learning (2016--2022)}{27}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Deep Learning Approaches (2022--Present)}{28}{subsection.3.3.3}%
-\contentsline {section}{\numberline {3.4}Resistance Gene-Based Prediction Methods}{28}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Sunuwar \& Azad Framework}{28}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Limitations}{28}{subsection.3.4.2}%
-\contentsline {section}{\numberline {3.5}Whole Genome Sequence-Based Prediction Methods}{29}{section.3.5}%
-\contentsline {subsection}{\numberline {3.5.1}K-mer Models}{29}{subsection.3.5.1}%
-\contentsline {subsection}{\numberline {3.5.2}Critical Review of BioWeka (Noman et al., 2023)}{29}{subsection.3.5.2}%
-\contentsline {subsection}{\numberline {3.5.3}Comparison of Paradigms}{29}{subsection.3.5.3}%
-\contentsline {section}{\numberline {3.6}Feature Engineering and Selection Strategies}{29}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}Feature Engineering}{29}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}Feature Selection}{30}{subsection.3.6.2}%
-\contentsline {section}{\numberline {3.7}Class Imbalance Handling}{30}{section.3.7}%
-\contentsline {section}{\numberline {3.8}Ensemble Methods and Interpretability}{30}{section.3.8}%
-\contentsline {subsection}{\numberline {3.8.1}Ensemble Learning}{30}{subsection.3.8.1}%
-\contentsline {subsection}{\numberline {3.8.2}Interpretability}{30}{subsection.3.8.2}%
-\contentsline {section}{\numberline {3.9}Research Gaps Identified}{30}{section.3.9}%
-\contentsline {section}{\numberline {3.10}Summary}{31}{section.3.10}%
-\contentsline {chapter}{\numberline {4}Methodology}{32}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Overview}{32}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Dataset Collection and Preprocessing}{33}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Dataset Description}{33}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Resistance Gene-Based Datasets (Sunuwar et al.)}{33}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}WGS-Based Dataset (Noman et al.)}{34}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Binary Gene Matrix Construction}{35}{subsection.4.2.4}%
-\contentsline {section}{\numberline {4.3}Feature Engineering}{36}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Resistance Gene Load Score (R-Score)}{36}{subsection.4.3.1}%
-\contentsline {section}{\numberline {4.4}Feature Selection}{36}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Stage 1: ANOVA F-test}{36}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Stage 2: XGBoost Embedded Importance}{36}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.4.3}Union-Based Integration}{36}{subsection.4.4.3}%
-\contentsline {section}{\numberline {4.5}Class Imbalance Handling}{37}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Resampling Alternatives Evaluated}{37}{subsection.4.5.1}%
-\contentsline {subsection}{\numberline {4.5.2}Selected Method: SMOTETomek}{37}{subsection.4.5.2}%
-\contentsline {section}{\numberline {4.6}Model Training and Ensemble Construction}{38}{section.4.6}%
-\contentsline {subsection}{\numberline {4.6.1}Base Models Evaluated}{38}{subsection.4.6.1}%
-\contentsline {subsection}{\numberline {4.6.2}R-Blend Ensemble}{38}{subsection.4.6.2}%
-\contentsline {subsection}{\numberline {4.6.3}Training Protocol}{38}{subsection.4.6.3}%
-\contentsline {section}{\numberline {4.7}Evaluation Metrics}{39}{section.4.7}%
-\contentsline {subsection}{\numberline {4.7.1}Metric Priority}{39}{subsection.4.7.1}%
-\contentsline {subsection}{\numberline {4.7.2}Metric Definitions}{39}{subsection.4.7.2}%
-\contentsline {section}{\numberline {4.8}Model Interpretability and Explainability}{39}{section.4.8}%
-\contentsline {subsection}{\numberline {4.8.1}Permutation Importance}{39}{subsection.4.8.1}%
-\contentsline {subsection}{\numberline {4.8.2}SHAP Explanations}{39}{subsection.4.8.2}%
-\contentsline {subsection}{\numberline {4.8.3}Ensemble SHAP}{40}{subsection.4.8.3}%
-\contentsline {section}{\numberline {4.9}Experimental Design and Validation}{40}{section.4.9}%
-\contentsline {subsection}{\numberline {4.9.1}Ablation Studies}{40}{subsection.4.9.1}%
-\contentsline {subsection}{\numberline {4.9.2}Cross-Dataset Generalization}{40}{subsection.4.9.2}%
-\contentsline {subsection}{\numberline {4.9.3}Comparative Analysis}{40}{subsection.4.9.3}%
-\contentsline {section}{\numberline {4.10}Implementation Details}{41}{section.4.10}%
-\contentsline {section}{\numberline {4.11}Chapter Summary}{41}{section.4.11}%
-\contentsline {chapter}{\numberline {5}Results}{42}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Descriptive Statistics}{42}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Model Performance}{42}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Feature Importance}{42}{section.5.3}%
-\contentsline {chapter}{\numberline {6}Discussion}{43}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Interpretation of Findings}{43}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Comparison with Previous Studies}{43}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Limitations}{43}{section.6.3}%
-\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{44}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Conclusion}{44}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Future Research Directions}{44}{section.7.2}%
-\contentsline {chapter}{\numberline {A}Appendix A}{49}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Appendix B}{50}{appendix.B}%
+\contentsline {section}{\numberline {3.2}AMR Gene Databases and Detection Tools}{27}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Evolution of Machine Learning Approaches for AMR Prediction}{28}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Rule-Based Detection (2010--2016)}{28}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Classical Machine Learning (2016--2022)}{28}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Deep Learning Approaches (2022--Present)}{29}{subsection.3.3.3}%
+\contentsline {section}{\numberline {3.4}Resistance Gene-Based Prediction Methods}{30}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Sunuwar \& Azad Framework}{30}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Limitations and Research Gaps}{30}{subsection.3.4.2}%
+\contentsline {section}{\numberline {3.5}Whole Genome Sequence-Based Prediction Methods}{31}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}K-mer Models}{31}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}The Noman et al. BioWeka Framework: A Critical Analysis}{32}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Comparative Considerations:}{32}{subsection.3.5.3}%
+\contentsline {section}{\numberline {3.6}Feature Engineering and Selection Strategies}{33}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Feature Engineering}{33}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Feature Selection Methods:}{33}{subsection.3.6.2}%
+\contentsline {section}{\numberline {3.7}Class Imbalance Handling in AMR Prediction}{33}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Ensemble Methods and Model Interpretability}{34}{section.3.8}%
+\contentsline {subsection}{\numberline {3.8.1}Ensemble Architecture}{34}{subsection.3.8.1}%
+\contentsline {subsection}{\numberline {3.8.2}Model Interpretability}{34}{subsection.3.8.2}%
+\contentsline {section}{\numberline {3.9}Research Gaps and Motivation for Present Study}{34}{section.3.9}%
+\contentsline {section}{\numberline {3.10}Chapter Summary}{35}{section.3.10}%
+\contentsline {section}{\numberline {3.11}Chapter Summary}{35}{section.3.11}%
+\contentsline {chapter}{\numberline {4}Methodology}{37}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Overview}{37}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Dataset Collection and Preprocessing}{38}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Dataset Description}{38}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Resistance Gene-Based Datasets (Sunuwar et al.)}{38}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}WGS-Based Dataset (Noman et al.)}{39}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Binary Gene Matrix Construction}{40}{subsection.4.2.4}%
+\contentsline {section}{\numberline {4.3}Feature Engineering}{41}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Resistance Gene Load Score (R-Score)}{41}{subsection.4.3.1}%
+\contentsline {section}{\numberline {4.4}Feature Selection}{41}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Stage 1: ANOVA F-test}{41}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Stage 2: XGBoost Embedded Importance}{41}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Union-Based Integration}{41}{subsection.4.4.3}%
+\contentsline {section}{\numberline {4.5}Class Imbalance Handling}{42}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Resampling Alternatives Evaluated}{42}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Selected Method: SMOTETomek}{42}{subsection.4.5.2}%
+\contentsline {section}{\numberline {4.6}Model Training and Ensemble Construction}{43}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}Base Models Evaluated}{43}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}R-Blend Ensemble}{43}{subsection.4.6.2}%
+\contentsline {subsection}{\numberline {4.6.3}Training Protocol}{43}{subsection.4.6.3}%
+\contentsline {section}{\numberline {4.7}Evaluation Metrics}{44}{section.4.7}%
+\contentsline {subsection}{\numberline {4.7.1}Metric Priority}{44}{subsection.4.7.1}%
+\contentsline {subsection}{\numberline {4.7.2}Metric Definitions}{44}{subsection.4.7.2}%
+\contentsline {section}{\numberline {4.8}Model Interpretability and Explainability}{44}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}Permutation Importance}{44}{subsection.4.8.1}%
+\contentsline {subsection}{\numberline {4.8.2}SHAP Explanations}{44}{subsection.4.8.2}%
+\contentsline {subsection}{\numberline {4.8.3}Ensemble SHAP}{45}{subsection.4.8.3}%
+\contentsline {section}{\numberline {4.9}Experimental Design and Validation}{45}{section.4.9}%
+\contentsline {subsection}{\numberline {4.9.1}Ablation Studies}{45}{subsection.4.9.1}%
+\contentsline {subsection}{\numberline {4.9.2}Cross-Dataset Generalization}{45}{subsection.4.9.2}%
+\contentsline {subsection}{\numberline {4.9.3}Comparative Analysis}{45}{subsection.4.9.3}%
+\contentsline {section}{\numberline {4.10}Implementation Details}{46}{section.4.10}%
+\contentsline {section}{\numberline {4.11}Chapter Summary}{46}{section.4.11}%
+\contentsline {chapter}{\numberline {5}Results}{47}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Descriptive Statistics}{47}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Model Performance}{47}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Feature Importance}{47}{section.5.3}%
+\contentsline {chapter}{\numberline {6}Discussion}{48}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Interpretation of Findings}{48}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Comparison with Previous Studies}{48}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Limitations}{48}{section.6.3}%
+\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{49}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Conclusion}{49}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Future Research Directions}{49}{section.7.2}%
+\contentsline {chapter}{\numberline {A}Appendix A}{54}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Appendix B}{55}{appendix.B}%
